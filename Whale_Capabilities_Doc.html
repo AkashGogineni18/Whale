@@ -1,0 +1,630 @@
+<title>Whale — Capabilities &amp; Positioning</title>
+<style>
+  :root {
+    --bg: #F2F4F3;
+    --bg-raised: #FFFFFF;
+    --ink: #10202A;
+    --ink-soft: #4B5D66;
+    --ink-faint: #7C8B90;
+    --line: #D6DCDB;
+    --accent: #B9722E;
+    --accent-strong: #96591F;
+    --accent-soft: #F1E4D3;
+    --accent-ink: #3A2410;
+    --teal: #35606B;
+    --teal-soft: #E4ECEC;
+    --shadow: 0 1px 2px rgba(16,32,42,0.06), 0 8px 24px rgba(16,32,42,0.06);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0D161C;
+      --bg-raised: #142029;
+      --ink: #E7EEEC;
+      --ink-soft: #9FB0AF;
+      --ink-faint: #6E8186;
+      --line: #263740;
+      --accent: #E0A05B;
+      --accent-strong: #F0B679;
+      --accent-soft: #2C2114;
+      --accent-ink: #F6DFC0;
+      --teal: #6FA3AE;
+      --teal-soft: #17262A;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 12px 28px rgba(0,0,0,0.35);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0D161C; --bg-raised: #142029; --ink: #E7EEEC; --ink-soft: #9FB0AF;
+    --ink-faint: #6E8186; --line: #263740; --accent: #E0A05B; --accent-strong: #F0B679;
+    --accent-soft: #2C2114; --accent-ink: #F6DFC0; --teal: #6FA3AE; --teal-soft: #17262A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 12px 28px rgba(0,0,0,0.35);
+  }
+  :root[data-theme="light"] {
+    --bg: #F2F4F3; --bg-raised: #FFFFFF; --ink: #10202A; --ink-soft: #4B5D66;
+    --ink-faint: #7C8B90; --line: #D6DCDB; --accent: #B9722E; --accent-strong: #96591F;
+    --accent-soft: #F1E4D3; --accent-ink: #3A2410; --teal: #35606B; --teal-soft: #E4ECEC;
+    --shadow: 0 1px 2px rgba(16,32,42,0.06), 0 8px 24px rgba(16,32,42,0.06);
+  }
+
+  * { box-sizing: border-box; }
+  html { background: var(--bg); }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent-strong); }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .display {
+    font-family: ui-serif, "New York", "Iowan Old Style", Georgia, "Times New Roman", serif;
+    text-wrap: balance;
+  }
+  .mono {
+    font-family: ui-monospace, "SF Mono", "Cascadia Code", "Roboto Mono", monospace;
+    font-variant-numeric: tabular-nums;
+  }
+  .eyebrow {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent-strong);
+    font-weight: 600;
+  }
+  .kicker {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    font-weight: 600;
+    margin: 0 0 1.1rem;
+    padding-bottom: 0.9rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  /* ---- Sticky nav ---- */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  .topbar-inner {
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 0.85rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .topbar-brand {
+    font-family: ui-serif, "New York", Georgia, serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+  }
+  .topbar-nav { display: flex; gap: 1.35rem; flex-wrap: wrap; }
+  .topbar-nav a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-size: 0.86rem;
+  }
+  .topbar-nav a:hover { color: var(--accent-strong); }
+
+  /* ---- Hero ---- */
+  .hero {
+    position: relative;
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 3.6rem 1.5rem 3.5rem;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    top: -140px;
+    right: -140px;
+    width: 480px;
+    height: 480px;
+    border-radius: 50%;
+    background:
+      radial-gradient(circle, transparent 0 78px, color-mix(in srgb, var(--accent) 16%, transparent) 79px 80px, transparent 81px 118px, color-mix(in srgb, var(--accent) 12%, transparent) 119px 120px, transparent 121px 158px, color-mix(in srgb, var(--accent) 8%, transparent) 159px 160px, transparent 161px);
+    pointer-events: none;
+  }
+  .hero-content { position: relative; max-width: 640px; }
+  .hero h1 {
+    font-size: clamp(2.3rem, 5vw, 3rem);
+    line-height: 1.08;
+    margin: 0 0 0.9rem;
+    font-weight: 600;
+  }
+  .hero p.lede {
+    font-size: 1.12rem;
+    color: var(--ink-soft);
+    margin: 0 0 1.5rem;
+    max-width: 36rem;
+  }
+  .hero-meta {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    font-size: 0.82rem;
+    color: var(--ink-faint);
+    border-top: 1px solid var(--line);
+    padding-top: 1rem;
+    margin-top: 1.5rem;
+  }
+  .hero-meta strong { color: var(--ink-soft); font-weight: 600; }
+
+  /* ---- Reading spine ---- */
+  main { max-width: 720px; margin: 0 auto; padding: 0 1.5rem 5rem; }
+  section { padding-top: 3.6rem; scroll-margin-top: 4.5rem; }
+  section + section { border-top: 1px solid var(--line); }
+  h2 {
+    font-size: 1.65rem;
+    margin: 0.4rem 0 0.6rem;
+    font-weight: 600;
+  }
+  h3 {
+    font-size: 1.12rem;
+    margin: 1.8rem 0 0.5rem;
+    font-weight: 600;
+  }
+  .section-intro { color: var(--ink-soft); max-width: 42rem; margin: 0 0 1.6rem; }
+  p { margin: 0 0 1rem; }
+  ul.feature-list { margin: 0 0 1rem; padding-left: 1.1rem; }
+  ul.feature-list li { margin-bottom: 0.4rem; color: var(--ink-soft); }
+  ul.feature-list li::marker { color: var(--accent); }
+  ul.feature-list b { color: var(--ink); font-weight: 600; }
+
+  .highlight-chip {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--bg);
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding: 0.32rem 0.7rem;
+    border-radius: 20px;
+    margin: 0.2rem 0 1.1rem;
+  }
+
+  /* ---- Spec grid (Tunnel limits) ---- */
+  .spec-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.9rem;
+    margin: 1.2rem 0 1.6rem;
+  }
+  @media (max-width: 680px) { .spec-grid { grid-template-columns: repeat(2, 1fr); } }
+  .spec {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 0.75rem 0.9rem;
+    background: var(--bg-raised);
+  }
+  .spec.featured { border-color: var(--accent); background: var(--accent-soft); }
+  .spec .spec-value {
+    font-family: ui-monospace, "SF Mono", monospace;
+    font-variant-numeric: tabular-nums;
+    font-size: 1.25rem;
+    color: var(--accent-strong);
+    font-weight: 600;
+  }
+  .spec.featured .spec-value { color: var(--accent-ink); }
+  .spec .spec-label {
+    font-size: 0.74rem;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-top: 0.15rem;
+  }
+  .spec.featured .spec-label { color: var(--accent-ink); opacity: 0.75; }
+
+  /* ---- Bands tree ---- */
+  .tree {
+    background: var(--bg-raised);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 1rem 1.3rem;
+    margin: 1.2rem 0 1.6rem;
+    font-family: ui-monospace, "SF Mono", monospace;
+    font-size: 0.86rem;
+    color: var(--ink-soft);
+    line-height: 1.85;
+    overflow-x: auto;
+  }
+  .tree .root { color: var(--ink); font-weight: 600; font-family: -apple-system, sans-serif; }
+
+  /* ---- Trust / architecture diagram ---- */
+  .flow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 1.4rem 0 1.6rem;
+  }
+  @media (max-width: 680px) { .flow { grid-template-columns: 1fr; } }
+  .flow-card {
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 1.1rem 1.2rem;
+    background: var(--bg-raised);
+  }
+  .flow-card.cloud { border-top: 3px solid var(--teal); }
+  .flow-card.privacy { border-top: 3px solid var(--accent); }
+  .flow-card h4 { margin: 0 0 0.3rem; font-size: 1rem; }
+  .flow-card .sub { font-size: 0.78rem; color: var(--ink-faint); margin-bottom: 0.7rem; }
+  .flow-steps { list-style: none; margin: 0; padding: 0; font-size: 0.87rem; }
+  .flow-steps li {
+    padding: 0.4rem 0 0.4rem 1.1rem;
+    position: relative;
+    color: var(--ink-soft);
+    border-bottom: 1px dashed var(--line);
+  }
+  .flow-steps li:last-child { border-bottom: none; }
+  .flow-steps li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--ink-faint);
+  }
+
+  .callout {
+    border: 1px solid var(--line);
+    background: var(--teal-soft);
+    border-radius: 8px;
+    padding: 0.9rem 1.1rem;
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+    margin: 1rem 0 1.6rem;
+  }
+  .callout b { color: var(--ink); }
+
+  /* ---- Comparison table ---- */
+  .table-wrap {
+    max-width: 1040px;
+    margin: 1.4rem auto 0;
+    padding: 0 1.5rem;
+    overflow-x: auto;
+  }
+  table.compare {
+    width: 100%;
+    min-width: 760px;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+    background: var(--bg-raised);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  table.compare caption { display: none; }
+  table.compare th, table.compare td {
+    padding: 0.75rem 0.9rem;
+    text-align: left;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  table.compare thead th {
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    font-weight: 600;
+    background: var(--bg);
+  }
+  table.compare thead th.whale-col { color: var(--accent-strong); }
+  table.compare tbody th {
+    font-weight: 600;
+    color: var(--ink);
+    width: 17%;
+    font-size: 0.85rem;
+  }
+  table.compare td.whale-col {
+    background: var(--accent-soft);
+    color: var(--accent-ink);
+    font-weight: 500;
+  }
+  table.compare td { color: var(--ink-soft); }
+  table.compare tbody tr:last-child th,
+  table.compare tbody tr:last-child td { border-bottom: none; }
+
+  /* ---- Closing ---- */
+  .closing {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 3.5rem 1.5rem 5rem;
+    text-align: center;
+  }
+  .closing blockquote {
+    font-family: ui-serif, "New York", Georgia, serif;
+    font-size: 1.4rem;
+    line-height: 1.45;
+    color: var(--ink);
+    margin: 0 0 1rem;
+    text-wrap: balance;
+  }
+  .closing .tagline { color: var(--ink-faint); font-size: 0.85rem; letter-spacing: 0.03em; }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+</style>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-brand display">Whale</div>
+    <nav class="topbar-nav">
+      <a href="#ai">Whale AI</a>
+      <a href="#tunnel">Tunnel</a>
+      <a href="#bands">Bands</a>
+      <a href="#trust">Trust</a>
+      <a href="#compare">Comparison</a>
+    </nav>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="hero-content">
+    <p class="kicker">Whale — for individuals, groups, creators, students, teams, and families</p>
+    <p class="eyebrow">The NextGen messaging</p>
+    <h1 class="display">Chat smarter. Share original. Stay organized.</h1>
+    <p class="lede">Whale is a next-generation messaging app with personal AI, original-quality file sharing, and Bands that keep conversations from turning into chaos.</p>
+    <div class="hero-meta">
+      <div><strong>Core pillars</strong> Whale AI · Whale Tunnel · Bands</div>
+      <div><strong>Benchmarked against</strong> WhatsApp · Telegram</div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <section id="ai">
+    <p class="eyebrow">Pillar 01</p>
+    <h2>Whale AI</h2>
+    <p class="section-intro">Every user gets a personal AI that understands their own conversations — not a per-group bot, but an assistant that follows you across chats. This is the core of what makes Whale next-gen: chat that gets smarter the more you use it, instead of just piling up.</p>
+
+    <h3>Personal assistant</h3>
+    <ul class="feature-list">
+      <li>Summarize unread messages across a chat or Band</li>
+      <li>Surface what a specific person said on a specific topic</li>
+      <li>Turn a conversation into action items</li>
+      <li>Detect and pin decisions automatically</li>
+      <li>Draft replies, reminders, and translations on request</li>
+    </ul>
+
+    <h3>Semantic search</h3>
+    <p>Search by meaning, not exact wording — <em>"that message about Charan explaining the weekend trip"</em> finds the message even if those aren't the words used. Search spans messages, people, files, tasks, decisions, links, scheduled messages, and voice notes.</p>
+
+    <h3>AI rewrite — user-approved, never silent</h3>
+    <p>Rewrite suggestions (translate, fix grammar, make professional, make friendlier, make shorter) are shown before sending, never applied automatically. You approve every change.</p>
+
+    <h3>Chat memory</h3>
+    <p>Ask a Band directly: <em>"What did we decide about the Boise trip?"</em> or <em>"What files did Shareef send last week?"</em> — the AI holds context per-room, scoped to that Band.</p>
+
+    <h3>Smart file vault</h3>
+    <p>Every Band gets an organized file system instead of files buried in scrollback: all files, large files, images, videos, documents, expired files, shared-by-me, downloaded-by-others, and AI-generated summaries on request.</p>
+
+    <h3>Scheduled messaging</h3>
+    <ul class="feature-list">
+      <li>Schedule to one person, one Band, or several Bands at once</li>
+      <li>Recurring sends with timezone awareness</li>
+      <li>Optional approval step before a scheduled message goes out</li>
+      <li>Edit or cancel anytime before send</li>
+    </ul>
+
+    <h3>Smart notifications</h3>
+    <p>Messages are triaged — urgent, needs reply, FYI, task, decision, file shared, social — so low-priority chatter can be summarized later instead of interrupting now.</p>
+  </section>
+
+  <section id="tunnel">
+    <p class="eyebrow">Pillar 02</p>
+    <h2>Whale Tunnel</h2>
+    <div class="highlight-chip">Uncompressed, always</div>
+    <p class="section-intro">A secure large-file sharing channel that sends originals — never a compressed preview. Files are split into encrypted chunks, held temporarily on Whale's servers, and deleted after successful delivery or expiry.</p>
+
+    <div class="spec-grid">
+      <div class="spec featured"><div class="spec-value mono">Zero</div><div class="spec-label">Compression applied</div></div>
+      <div class="spec"><div class="spec-value mono">5 GB</div><div class="spec-label">Standard limit</div></div>
+      <div class="spec"><div class="spec-value mono">15 GB</div><div class="spec-label">Premium limit</div></div>
+    </div>
+
+    <h3>Capabilities</h3>
+    <ul class="feature-list">
+      <li><b>Original quality</b> — no re-encoding of photos, video, or audio, ever.</li>
+      <li><b>Resumable transfer</b> — chunked upload and download can pause and resume, with live progress tracking.</li>
+      <li><b>Expiring access</b> — set a tunnel to close after a fixed window (e.g. 48 hours).</li>
+      <li><b>One-time download</b> — file is removed the moment it's retrieved.</li>
+      <li><b>Password-protected tunnels</b> — an extra credential layer beyond chat access.</li>
+      <li><b>Revoke anytime</b> — sender can kill an active tunnel before it's collected.</li>
+      <li><b>Download status</b> — see exactly when, and by whom, a file was picked up.</li>
+      <li><b>Auto-delete</b> — chunks clear from Whale's servers after delivery or expiry, whichever comes first.</li>
+    </ul>
+  </section>
+
+  <section id="bands">
+    <p class="eyebrow">Pillar 03</p>
+    <h2>Bands</h2>
+    <p class="section-intro">A Band is a structured workspace, not just a group thread. One Band, many rooms.</p>
+
+    <div class="tree">
+      <div class="root">AI Team Band</div>
+      ├── General<br>
+      ├── H100 Alerts<br>
+      ├── Files<br>
+      ├── Tasks<br>
+      ├── Scheduled Messages<br>
+      └── AI Summary
+    </div>
+
+    <h3>What a Band holds</h3>
+    <ul class="feature-list">
+      <li><b>Main chat + sub-rooms</b> — split topics without splitting the group.</li>
+      <li><b>Announcements</b> — a broadcast layer separate from day-to-day chat.</li>
+      <li><b>Files, Tasks, Polls</b> — first-class tabs, not buried in scrollback.</li>
+      <li><b>Scheduled messages</b> — visible and editable at the Band level.</li>
+      <li><b>AI summary</b> — a standing digest of what happened since you last checked.</li>
+      <li><b>Pinned decisions</b> — the outcomes, kept separate from the discussion that produced them.</li>
+    </ul>
+
+    <div class="spec-grid" style="grid-template-columns: 1fr;">
+      <div class="spec"><div class="spec-value mono">500,000</div><div class="spec-label">Members per Band</div></div>
+    </div>
+  </section>
+
+  <section id="family">
+    <p class="eyebrow">Extension</p>
+    <h2>Family Band</h2>
+    <p class="section-intro">A Band template purpose-built for households rather than teams.</p>
+    <div class="tree">
+      <div class="root">Family Band</div>
+      ├── Chat<br>
+      ├── Calendar<br>
+      ├── Documents<br>
+      ├── Reminders<br>
+      └── Emergency Contacts
+    </div>
+    <ul class="feature-list">
+      <li>Shared family calendar and event planning</li>
+      <li>Medication and birthday reminders</li>
+      <li>Travel location sharing and emergency alerts</li>
+      <li>Family documents vault</li>
+      <li>Expense splitting</li>
+    </ul>
+  </section>
+
+  <section id="trust">
+    <p class="eyebrow">Architecture</p>
+    <h2>Trust &amp; encryption model</h2>
+    <p class="section-intro">Whale runs two distinct modes rather than one blanket claim. AI needs to read content to be useful; true privacy means no one — including Whale — can read content at all. Rather than blur that line, each chat is explicitly one or the other.</p>
+
+    <div class="flow">
+      <div class="flow-card cloud">
+        <h4>Cloud Mode <span style="color:var(--ink-faint); font-weight:400;">— default</span></h4>
+        <div class="sub">Powers Whale AI, search, sync, and Bands</div>
+        <ul class="flow-steps">
+          <li>Message encrypted in transit (device → server)</li>
+          <li>Server decrypts to run AI processing</li>
+          <li>Content re-encrypted at rest, key-managed via KMS/HSM</li>
+          <li>Delivered to recipient device</li>
+        </ul>
+      </div>
+      <div class="flow-card privacy">
+        <h4>Privacy Mode <span style="color:var(--ink-faint); font-weight:400;">— opt-in per chat</span></h4>
+        <div class="sub">True end-to-end — the server never holds the key</div>
+        <ul class="flow-steps">
+          <li>Keys generated and held only on sender/receiver devices</li>
+          <li>No screenshots, no forwarding</li>
+          <li>Messages auto-delete, files expire</li>
+          <li>AI cannot process this chat — it has no key to do so</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<section id="compare" style="padding-top: 1rem;">
+  <div style="max-width:720px; margin:0 auto; padding: 3rem 1.5rem 0;">
+    <p class="eyebrow">Benchmark</p>
+    <h2>Whale vs. WhatsApp vs. Telegram</h2>
+    <p class="section-intro">Eleven capabilities, compared as they actually function today — not aspirational claims.</p>
+  </div>
+
+  <div class="table-wrap">
+    <table class="compare">
+      <caption>Whale compared to WhatsApp and Telegram across eleven capabilities</caption>
+      <thead>
+        <tr>
+          <th scope="col">Capability</th>
+          <th scope="col" class="whale-col">Whale</th>
+          <th scope="col">WhatsApp</th>
+          <th scope="col">Telegram</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Large file sharing</th>
+          <td class="whale-col">Up to 5 GB (15 GB premium), resumable chunked transfer</td>
+          <td>~100 MB, not built for large originals</td>
+          <td>Up to 2 GB, no resume support</td>
+        </tr>
+        <tr>
+          <th scope="row">Media quality</th>
+          <td class="whale-col">No compression by default</td>
+          <td>Images/video compressed by default</td>
+          <td>Compression depends on send method</td>
+        </tr>
+        <tr>
+          <th scope="row">File access control</th>
+          <td class="whale-col">Revoke anytime, one-time download, password-protected tunnels, expiry</td>
+          <td>Basic sharing controls only</td>
+          <td>No expiry or password controls; file persists with the chat</td>
+        </tr>
+        <tr>
+          <th scope="row">Group structure</th>
+          <td class="whale-col">Bands: sub-rooms, tasks, polls, pinned decisions, AI summary</td>
+          <td>Flat groups, 1,024-member cap</td>
+          <td>Channels/supergroups to 200K, minimal internal structure</td>
+        </tr>
+        <tr>
+          <th scope="row">Personal AI</th>
+          <td class="whale-col">Every user gets a personal assistant across all their chats</td>
+          <td>None native</td>
+          <td>Bots exist, but as per-chat tools, not a personal assistant</td>
+        </tr>
+        <tr>
+          <th scope="row">Search</th>
+          <td class="whale-col">Semantic — finds messages by meaning</td>
+          <td>Exact keyword match only</td>
+          <td>Strong keyword search, not meaning-based</td>
+        </tr>
+        <tr>
+          <th scope="row">AI message rewrite</th>
+          <td class="whale-col">User-approved rewrite before sending</td>
+          <td>None native</td>
+          <td>None native</td>
+        </tr>
+        <tr>
+          <th scope="row">File organization</th>
+          <td class="whale-col">AI-organized vault per Band, with summaries on request</td>
+          <td>Files live in the chat thread only</td>
+          <td>Saved Messages + chat media, not AI-organized</td>
+        </tr>
+        <tr>
+          <th scope="row">Scheduled messaging</th>
+          <td class="whale-col">To people or Bands, recurring, timezone-aware, approval step</td>
+          <td>Not native</td>
+          <td>Native schedule-send, not tied to AI or tasks</td>
+        </tr>
+        <tr>
+          <th scope="row">Encryption model</th>
+          <td class="whale-col">Cloud Mode by default (AI-enabled); true E2E in opt-in Privacy Mode</td>
+          <td>E2E by default for all personal chats</td>
+          <td>Cloud Chats by default (server-readable); true E2E only in opt-in Secret Chats</td>
+        </tr>
+        <tr>
+          <th scope="row">Family tools</th>
+          <td class="whale-col">Family Band: calendar, meds, location, emergency alerts, expense split</td>
+          <td>Plain groups only</td>
+          <td>Plain groups/channels only</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<div class="closing">
+  <blockquote class="display">"Whale isn't just a chat app — it's where conversations become organized, memories stay original, files move without limits, and AI helps every user chat smarter."</blockquote>
+  <div class="tagline">WHALE — FOR INDIVIDUALS, GROUPS, CREATORS, STUDENTS, TEAMS, AND FAMILIES</div>
+</div>

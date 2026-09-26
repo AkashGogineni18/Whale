@@ -1,0 +1,1709 @@
+<title>Whale — V1 Screens</title>
+<style>
+  :root {
+    --bg: #F2F4F3; --bg-raised: #FFFFFF; --ink: #10202A; --ink-soft: #4B5D66; --ink-faint: #7C8B90;
+    --line: #D6DCDB; --accent: #4F46E5; --accent-strong: #3730A3; --accent-soft: #E8E7FC;
+    --teal: #35606B; --teal-soft: #E4ECEC;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#0D161C; --bg-raised:#142029; --ink:#E7EEEC; --ink-soft:#9FB0AF; --ink-faint:#6E8186;
+      --line:#263740; --accent:#8B85F0; --accent-strong:#A5A0F5; --accent-soft:#1E1B3A; --teal:#6FA3AE; --teal-soft:#17262A; }
+  }
+  :root[data-theme="dark"] { --bg:#0D161C; --bg-raised:#142029; --ink:#E7EEEC; --ink-soft:#9FB0AF; --ink-faint:#6E8186;
+    --line:#263740; --accent:#8B85F0; --accent-strong:#A5A0F5; --accent-soft:#1E1B3A; --teal:#6FA3AE; --teal-soft:#17262A; }
+  :root[data-theme="light"] { --bg:#F2F4F3; --bg-raised:#FFFFFF; --ink:#10202A; --ink-soft:#4B5D66; --ink-faint:#7C8B90;
+    --line:#D6DCDB; --accent:#4F46E5; --accent-strong:#3730A3; --accent-soft:#E8E7FC; --teal:#35606B; --teal-soft:#E4ECEC; }
+
+  * { box-sizing: border-box; }
+  html { background: var(--bg); }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,sans-serif; -webkit-font-smoothing:antialiased; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .display { font-family: -apple-system, "SF Pro Display", "Segoe UI", Arial, sans-serif; font-weight: 800; letter-spacing: -0.03em; text-wrap: balance; }
+  .eyebrow { font-size:0.72rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--accent-strong); font-weight:600; }
+
+  .page-head { max-width: 1200px; margin: 0 auto; padding: 4rem 1.5rem 1rem; }
+  .page-head h1 { font-size: clamp(2rem, 4vw, 2.7rem); margin: 0.4rem 0 0.6rem; font-weight: 600; }
+  .page-head p { color: var(--ink-soft); max-width: 46rem; margin: 0; font-size: 1.05rem; }
+  .rule-note { max-width: 46rem; margin-top: 0.9rem; padding: 0.7rem 1rem; border-left: 3px solid var(--accent); background: var(--accent-soft); border-radius: 0 6px 6px 0; font-size: 0.85rem; color: var(--accent-strong); font-weight: 600; }
+
+  .group { max-width: 1200px; margin: 0 auto; padding: 2.6rem 1.5rem 0; }
+  .group-head { display: flex; align-items: baseline; gap: 0.7rem; margin-bottom: 1.4rem; border-top: 1px solid var(--line); padding-top: 1.6rem; }
+  .group-head h2 { font-size: 1.1rem; margin: 0; font-weight: 600; }
+  .group-head span { font-size: 0.8rem; color: var(--ink-faint); }
+  .rack { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 2.2rem 1.6rem; }
+  .unit { display: flex; flex-direction: column; align-items: center; gap: 0.85rem; }
+  .caption { text-align: center; }
+  .caption .name { font-size: 0.88rem; font-weight: 600; color: var(--ink); }
+  .caption .note { font-size: 0.76rem; color: var(--ink-faint); margin-top: 0.15rem; }
+
+  /* ---- Device frame (fixed literal colors) ---- */
+  .device { width: 248px; background: #15191B; border-radius: 34px; padding: 8px; box-shadow: 0 1px 1px rgba(0,0,0,0.2), 0 20px 40px rgba(10,15,17,0.28); }
+  .screen { position: relative; width: 100%; height: 522px; background: #FFFFFF; border-radius: 27px; overflow: hidden; display: flex; flex-direction: column; color: #171B1A; font-family: -apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,sans-serif; }
+  .island { position: absolute; top: 8px; left: 50%; transform: translateX(-50%); width: 66px; height: 18px; background: #15191B; border-radius: 10px; z-index: 6; }
+  .home-bar { position: absolute; bottom: 6px; left: 50%; transform: translateX(-50%); width: 100px; height: 4px; background: #171B1A; opacity: 0.22; border-radius: 3px; z-index: 6; }
+  .status { height: 34px; flex-shrink: 0; display: flex; align-items: center; justify-content: space-between; padding: 0 18px; font-size: 11px; font-weight: 600; color: #171B1A; }
+  .status .dots { display: flex; gap: 3px; align-items: center; }
+  .status .bar { width: 3px; background: #171B1A; border-radius: 1px; }
+
+  .app-header { flex-shrink: 0; padding: 6px 16px 10px; border-bottom: 1px solid #ECEDE9; display: flex; align-items: center; gap: 10px; }
+  .app-header .back { font-size: 17px; color: #6B7570; width: 14px; }
+  .app-header .titles { flex: 1; min-width: 0; }
+  .app-header .title { font-size: 15px; font-weight: 700; letter-spacing: -0.01em; }
+  .app-header .title.serif { font-family: -apple-system, "SF Pro Display", Arial, sans-serif; font-size: 19px; font-weight: 800; letter-spacing: -0.02em; }
+  .app-header .subtitle { font-size: 11px; color: #8A9490; margin-top: 1px; }
+  .header-icons { display: flex; gap: 8px; flex-shrink: 0; }
+  .icon { width: 22px; height: 22px; border-radius: 50%; background: #F1F2EE; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #6B7570; flex-shrink: 0; }
+  .icon.accent { background: #171B1A; color: #E8E7FC; }
+  .ico { width: 1em; height: 1em; display: block; }
+
+  /* Big editorial header for the four main tabs */
+  .tab-header { flex-shrink: 0; padding: 16px 16px 6px; }
+  .tab-header .row1 { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+  .tab-header .tt { font-family: -apple-system, "SF Pro Display", Arial, sans-serif; font-size: 27px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.05; }
+  .tab-header .ts { font-size: 11px; color: #8A9490; margin-top: 3px; }
+  .tab-header .ticons { display: flex; gap: 8px; padding-top: 5px; flex-shrink: 0; }
+
+  .body-scroll { flex: 1; overflow: hidden; padding: 10px 14px 0; display: flex; flex-direction: column; gap: 10px; }
+
+  .avatar { width: 44px; height: 44px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: #fff; object-fit: cover; background-color: #E9EAE5; }
+  .avatar svg { width: 55%; height: 55%; }
+  .avatar-wrap { position: relative; flex-shrink: 0; }
+  .avatar-wrap .badge { position: absolute; bottom: -3px; right: -3px; width: 16px; height: 16px; border-radius: 50%; background: #171B1A; border: 2px solid #FAFAF8; display: flex; align-items: center; justify-content: center; font-size: 7px; color: #E8E7FC; }
+
+  /* Search field */
+  /* Search — a dark hero card, matching W's "ask anything" input language instead of a flat grey pill */
+  .search-field { flex-shrink: 0; margin: 8px 14px; background: #232928; border: none; border-radius: 16px; padding: 12px 14px; display: flex; align-items: center; gap: 8px; font-size: 12px; color: #7C8580; font-weight: 500; }
+  .search-field .ico { color: #7C8580; }
+
+  /* Pinned row */
+  .pinned-row { display: flex; gap: 13px; padding: 2px 14px 10px; overflow: hidden; }
+  .pinned-chip { display: flex; flex-direction: column; align-items: center; gap: 4px; width: 46px; flex-shrink: 0; }
+  .pinned-ring { width: 48px; height: 48px; border-radius: 50%; padding: 2px; border: 2px solid #4F46E5; display: flex; align-items: center; justify-content: center; }
+  .pinned-ring .avatar { width: 100%; height: 100%; font-size: 12px; }
+  .pinned-label { font-size: 9px; color: #6B7570; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 46px; }
+  .list-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #9AA39F; padding: 2px 0 0; }
+
+  /* Chat list */
+  .chat-row { display: flex; align-items: center; gap: 11px; padding: 10px 11px; background: #fff; border: 1px solid #ECEDE9; border-radius: 16px; box-shadow: 0 1px 2px rgba(16,32,42,0.04); }
+  .chat-row .kind { width: 16px; height: 16px; border-radius: 5px; background: #F1F2EE; color: #8A9490; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .chat-row .kind .ico { width: 10px; height: 10px; }
+  .chat-row .meta { flex: 1; min-width: 0; }
+  .chat-row .top-line { display: flex; justify-content: space-between; align-items: baseline; }
+  .chat-row .who { font-size: 14.5px; font-weight: 700; letter-spacing: -0.01em; }
+  .chat-row .time { font-family: ui-monospace, "SF Mono", monospace; font-size: 10px; color: #9AA39F; flex-shrink: 0; }
+  .chat-row .preview { font-size: 12px; color: #7C8580; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .chat-row .dot { width: 8px; height: 8px; border-radius: 50%; background: #4F46E5; flex-shrink: 0; margin-left: 6px; }
+  .chat-list-divider { height: 1px; background: #EFF0EC; margin-left: 51px; }
+
+  /* Bottom tab bar */
+  .tabbar2 { flex-shrink: 0; height: 58px; border-top: 1px solid #ECEDE9; display: flex; align-items: center; justify-content: space-around; padding-bottom: 4px; }
+  .tabbar2 .t { display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 9px; color: #AEB6B2; font-weight: 600; }
+  .tabbar2 .t .g { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #AEB6B2; }
+  .tabbar2 .t.active { color: #4F46E5; }
+  .tabbar2 .t.active .g { background: #4F46E5; color: #fff; }
+
+  /* Bubbles */
+  .thread { flex: 1; overflow: hidden; padding: 12px 14px 6px; display: flex; flex-direction: column; gap: 7px; justify-content: flex-end; }
+  .bubble { max-width: 74%; padding: 9px 13px; border-radius: 16px; font-size: 13px; line-height: 1.45; }
+  .bubble.in { align-self: flex-start; background: #F0F1EE; color: #171B1A; border-bottom-left-radius: 6px; }
+  .bubble.out { align-self: flex-end; background: #4F46E5; color: #FFFFFF; border-bottom-right-radius: 6px; }
+
+  .composer-wrap { flex-shrink: 0; padding: 8px 12px 14px; }
+  .composer { display: flex; align-items: center; gap: 8px; background: #171B1A; border-radius: 22px; padding: 7px 7px 7px 14px; }
+  .composer .plus { width: 24px; height: 24px; border-radius: 50%; background: rgba(255,255,255,0.12); color: #C7CDC9; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+  .composer .ph { flex: 1; font-size: 12px; color: #8A9490; }
+  .composer .wbtn { width: 24px; height: 24px; border-radius: 50%; background: #4F46E5; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; flex-shrink: 0; }
+  .composer .send { width: 24px; height: 24px; border-radius: 50%; background: #fff; color: #171B1A; display: flex; align-items: center; justify-content: center; font-size: 11px; flex-shrink: 0; }
+
+  /* Rewrite / summary / generic AI cards */
+  .ai-chips { display: flex; gap: 6px; padding: 0 14px 8px; flex-wrap: wrap; }
+  .ai-chip { font-size: 10.5px; padding: 5px 10px; border-radius: 12px; background: #F1F2EE; color: #4B5652; font-weight: 600; }
+  .ai-chip.on { background: #171B1A; color: #E8E7FC; }
+  .rewrite-card { margin: 0 14px 10px; background: #F5F4FE; border: 1px solid #C7C4F5; border-radius: 12px; padding: 10px 12px; }
+  .rewrite-card .label { font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.06em; color: #3730A3; font-weight: 700; margin-bottom: 4px; }
+  .rewrite-card .txt { font-size: 12.5px; line-height: 1.4; color: #171B1A; }
+  .rewrite-actions { display: flex; gap: 8px; margin-top: 9px; }
+  .btn-mini { flex: 1; text-align: center; font-size: 11px; font-weight: 700; padding: 7px 0; border-radius: 10px; }
+  .btn-mini.primary { background: #171B1A; color: #E8E7FC; }
+  .btn-mini.ghost { background: transparent; color: #6B7570; border: 1px solid #DCDFDA; }
+
+  .summary-card { margin: 0 14px 4px; background: #F5F4FE; border: 1px solid #C7C4F5; border-radius: 16px; padding: 10px 12px; position: relative; }
+  .summary-card .head { display: flex; align-items: center; gap: 6px; font-size: 10px; font-weight: 700; color: #3730A3; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
+  .summary-card .close { position: absolute; top: 8px; right: 10px; font-size: 12px; color: #C7B08A; }
+  .summary-list {
+    margin: 0; padding-left: 14px; font-size: 11.5px; line-height: 1.55; font-weight: 600;
+    background: linear-gradient(100deg, #4338CA 25%, #6D63E0 50%, #4338CA 75%);
+    background-size: 180% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: summary-shine 5.5s ease-in-out infinite;
+  }
+  .summary-list li { margin-bottom: 2px; }
+  @keyframes summary-shine {
+    0% { background-position: 130% 0; }
+    50% { background-position: -30% 0; }
+    100% { background-position: 130% 0; }
+  }
+
+  /* Category picker (Create Band) */
+  .cat-row { display: flex; align-items: center; gap: 11px; background: #fff; border: 1.5px solid #ECEDE9; border-radius: 16px; padding: 9px 12px; }
+  .cat-row.on { border-color: #C7C4F5; background: #F5F4FE; }
+  .cat-row .cg { width: 32px; height: 32px; border-radius: 10px; background: #F1F2EE; color: #4B5652; display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; }
+  .cat-row.on .cg { background: #171B1A; color: #E8E7FC; }
+  .cat-row .cn { font-size: 12.5px; font-weight: 700; }
+  .cat-row .cd { font-size: 9.5px; color: #9AA39F; margin-top: 1px; }
+  .cat-row .cchk { margin-left: auto; color: #3730A3; flex-shrink: 0; }
+
+  /* Band shortcut chips */
+  .shortcut-row { display: flex; gap: 7px; padding: 8px 14px 2px; flex-wrap: wrap; }
+  .shortcut-chip { display: flex; align-items: center; gap: 5px; font-size: 10.5px; font-weight: 600; color: #4B5652; background: #F1F2EE; padding: 6px 11px; border-radius: 12px; }
+
+  /* Visibility picker (Create Band step 1) */
+  .vis-card { display: flex; align-items: flex-start; gap: 12px; background: #fff; border: 1.5px solid #ECEDE9; border-radius: 16px; padding: 14px; margin-bottom: 10px; }
+  .vis-card.on { border-color: #C7C4F5; background: #F5F4FE; }
+  .vis-card .vg { width: 38px; height: 38px; border-radius: 11px; background: #F1F2EE; color: #4B5652; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .vis-card.on .vg { background: #171B1A; color: #E8E7FC; }
+  .vis-card .vn { font-size: 13.5px; font-weight: 700; }
+  .vis-card .vd { font-size: 10.5px; color: #9AA39F; margin-top: 2px; line-height: 1.4; }
+  .vis-card .vchk { margin-left: auto; color: #3730A3; flex-shrink: 0; }
+
+  /* Customize modules (checklist) */
+  .module-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 2px; border-bottom: 1px solid #F1F2EE; }
+  .module-row .mn { display: flex; align-items: center; gap: 9px; font-size: 12.5px; font-weight: 600; }
+  .module-row .mg { width: 26px; height: 26px; border-radius: 8px; background: #F1F2EE; color: #4B5652; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .module-row .mg svg { width: 14px; height: 14px; }
+
+  /* Join-mode picker */
+  .join-row { display: flex; align-items: center; gap: 11px; background: #fff; border: 1.5px solid #ECEDE9; border-radius: 16px; padding: 11px 12px; margin-bottom: 8px; }
+  .join-row.on { border-color: #C7C4F5; background: #F5F4FE; }
+  .join-row .jn { font-size: 12.5px; font-weight: 700; }
+  .join-row .jd { font-size: 9.5px; color: #9AA39F; margin-top: 1px; }
+  .join-row .jchk { margin-left: auto; color: #3730A3; flex-shrink: 0; }
+
+  /* Pinned-message rows (Notes / Feedback / Decisions — same generic pattern) */
+  .pin-row { display: flex; align-items: flex-start; gap: 10px; background: #fff; border: 1px solid #ECEDE9; border-radius: 14px; padding: 11px 12px; margin-bottom: 8px; }
+  .pin-row .pg { width: 28px; height: 28px; border-radius: 9px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #fff; }
+  .pin-row .pt { font-size: 12px; font-weight: 600; line-height: 1.4; }
+  .pin-row .pm { font-size: 9.5px; color: #9AA39F; margin-top: 3px; }
+
+  /* Inline AI suggestion chip (appears under a message in the thread) */
+  .ai-suggest { display: inline-flex; align-items: center; gap: 6px; align-self: flex-start; background: #F5F4FE; border: 1px solid #DAD6FB; color: #3730A3; font-size: 10.5px; font-weight: 700; padding: 6px 11px; border-radius: 11px; margin-top: -4px; }
+
+  /* Public band card (Discover) */
+  .pub-card { display: flex; align-items: center; gap: 11px; background: #fff; border: 1px solid #ECEDE9; border-radius: 16px; padding: 11px 12px; margin-bottom: 8px; }
+  .pub-card .pn { font-size: 13px; font-weight: 700; }
+  .pub-card .pd { font-size: 10px; color: #9AA39F; margin-top: 2px; }
+  .pub-card .pmeta { font-size: 9.5px; color: #9AA39F; margin-top: 3px; display: flex; gap: 8px; }
+  .follow-btn { font-size: 10.5px; font-weight: 700; padding: 7px 13px; border-radius: 11px; background: #171B1A; color: #fff; flex-shrink: 0; }
+  .follow-btn.ghost { background: #fff; border: 1.5px solid #171B1A; color: #171B1A; }
+
+  /* Task cards */
+  .task-card { background: #fff; border: 1px solid #ECEDE9; border-radius: 16px; padding: 10px 12px; display: flex; align-items: center; gap: 10px; }
+  .task-check { width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid #C7CDC9; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #fff; }
+  .task-check.done { background: #35606B; border-color: #35606B; }
+  .task-body { flex: 1; min-width: 0; }
+  .task-title { font-size: 12.5px; font-weight: 600; }
+  .task-title.done { text-decoration: line-through; color: #A8B0AC; }
+  .task-sub { font-size: 10.5px; color: #9AA39F; margin-top: 2px; }
+  .status-pill { font-size: 9px; font-weight: 700; padding: 3px 8px; border-radius: 8px; flex-shrink: 0; }
+  .status-pill.progress { background: #E8E7FC; color: #3730A3; }
+  .status-pill.todo { background: #EEF0EC; color: #7C8580; }
+  .status-pill.done { background: #E4ECEC; color: #35606B; }
+
+  /* File rows (Smart File View) */
+  .file-row { display: flex; align-items: center; gap: 10px; background: #fff; border: 1px solid #ECEDE9; border-radius: 16px; padding: 9px 11px; }
+  .file-row .ft { width: 34px; height: 34px; border-radius: 9px; background: #171B1A; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
+  .file-row .fn { font-size: 12px; font-weight: 700; }
+  .file-row .fm { font-size: 10px; color: #9AA39F; margin-top: 1px; }
+  .file-row .chev { margin-left: auto; color: #C7CDC9; font-size: 13px; }
+  .filter-row { display: flex; gap: 6px; padding: 0 14px 2px; overflow: hidden; }
+  .filter-chip { font-size: 10px; font-weight: 600; padding: 5px 10px; border-radius: 11px; background: #F1F2EE; color: #6B7570; white-space: nowrap; }
+  .filter-chip.on { background: #171B1A; color: #fff; }
+
+  /* Attach sheet + bottom-sheet-over-thread */
+  .scrim-thread { position: relative; flex: 1; overflow: hidden; }
+  .scrim-thread .thread { filter: blur(1.5px); opacity: 0.5; }
+  .scrim { position: absolute; inset: 0; background: rgba(15,20,18,0.28); }
+  .sheet { position: absolute; left: 0; right: 0; bottom: 0; background: #fff; border-radius: 26px 26px 0 0; padding: 10px 16px 18px; box-shadow: 0 -8px 24px rgba(0,0,0,0.12); }
+  .sheet-handle { width: 34px; height: 4px; background: #E2E4E0; border-radius: 3px; margin: 0 auto 12px; }
+  .sheet-title { font-size: 12px; font-weight: 700; color: #6B7570; margin-bottom: 10px; }
+  .attach-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .attach-opt { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .attach-opt .a-icon { width: 46px; height: 46px; border-radius: 13px; background: #F1F2EE; color: #4B5652; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+  .attach-opt .a-label { font-size: 10px; font-weight: 600; color: #4B5652; text-align: center; }
+
+  /* File send preview + in-thread card */
+  .file-card { background: #fff; border: 1px solid #ECEDE9; border-radius: 18px; padding: 12px; display: flex; gap: 12px; align-items: center; }
+  .file-thumb { width: 46px; height: 46px; border-radius: 10px; background: #171B1A; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 17px; flex-shrink: 0; }
+  .file-info .fname { font-size: 12.5px; font-weight: 700; line-height: 1.3; }
+  .file-info .fmeta { font-size: 10.5px; color: #9AA39F; margin-top: 3px; }
+  .badge-original { display: inline-block; margin-top: 5px; font-size: 9px; font-weight: 700; padding: 2px 7px; border-radius: 7px; background: #E4ECEC; color: #35606B; }
+  .opt-row { display: flex; align-items: center; justify-content: space-between; padding: 9px 2px; border-bottom: 1px solid #EFF0EC; }
+  .opt-row .opt-label { font-size: 12px; font-weight: 600; }
+  .opt-row .opt-value { font-size: 11px; color: #9AA39F; }
+  .toggle { width: 32px; height: 18px; border-radius: 10px; background: #E7E8E4; position: relative; }
+  .toggle.on { background: #4F46E5; }
+  .toggle::after { content: ""; position: absolute; top: 2px; left: 2px; width: 14px; height: 14px; border-radius: 50%; background: #fff; }
+  .toggle.on::after { left: 16px; }
+  .send-cta { text-align: center; font-size: 13px; font-weight: 700; padding: 11px 0; border-radius: 13px; background: #4F46E5; color: #fff; margin-top: 10px; }
+
+  .tunnel-bubble { align-self: flex-end; max-width: 78%; background: #fff; border: 1px solid #C7C4F5; border-radius: 16px; border-bottom-right-radius: 5px; padding: 10px; }
+  .tunnel-bubble .row { display: flex; gap: 9px; align-items: center; }
+  .tunnel-bubble .thumb { width: 38px; height: 38px; border-radius: 9px; background: #171B1A; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+  .tunnel-bubble .name { font-size: 11.5px; font-weight: 700; }
+  .tunnel-bubble .meta { font-size: 9.5px; color: #9AA39F; margin-top: 2px; }
+  .tunnel-bubble .progress-track { height: 4px; background: #EFEAE0; border-radius: 2px; margin-top: 8px; overflow: hidden; }
+  .tunnel-bubble .progress-fill { height: 100%; width: 72%; background: #4F46E5; border-radius: 2px; }
+  .tunnel-bubble .foot { display: flex; justify-content: space-between; font-size: 9px; color: #3730A3; font-weight: 700; margin-top: 5px; }
+
+  /* Popup action rows (W:AI popup) */
+  .popup-row { display: flex; align-items: center; gap: 10px; padding: 9px 2px; border-bottom: 1px solid #F1F2EE; }
+  .popup-row .pg { width: 26px; height: 26px; border-radius: 8px; background: #F1F2EE; color: #4B5652; display: flex; align-items: center; justify-content: center; font-size: 12px; flex-shrink: 0; }
+  .popup-row .pl { font-size: 12px; font-weight: 600; }
+  .prompt-field { display: flex; align-items: center; gap: 8px; background: #F1F2EE; border-radius: 13px; padding: 9px 12px; margin-bottom: 10px; font-size: 11.5px; color: #9AA39F; }
+
+  /* W main screen */
+  .w-hero { margin: 4px 14px 2px; background: radial-gradient(120% 140% at 88% -25%, rgba(79,70,229,0.45), transparent 55%), #171B1A; border-radius: 20px; padding: 14px; }
+  .w-answer { margin: 8px 14px 0; background: #fff; border: 1px solid #ECEDE9; border-radius: 16px; padding: 12px 14px; }
+  .w-answer .wa-text { font-size: 12.5px; line-height: 1.55; color: #171B1A; }
+  .w-answer .wa-cites { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 9px; }
+  .w-answer .wa-chip { font-size: 9.5px; font-weight: 600; color: #6B7570; background: #F1F2EE; padding: 4px 9px; border-radius: 9px; }
+  .w-hero .hg { font-size: 9.5px; color: #A9B3AE; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
+  .w-hero .hi { display: flex; align-items: center; gap: 8px; background: #232928; border-radius: 12px; padding: 10px 12px; margin-top: 9px; }
+  .w-hero .hi .ph { color: #7C8580; font-size: 12px; }
+  .w-sect-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #9AA39F; padding: 4px 0 0; }
+  .w-row { display: flex; align-items: center; gap: 10px; background: #fff; border: 1px solid #ECEDE9; border-radius: 16px; padding: 9px 11px; }
+  .w-row .wg { width: 28px; height: 28px; border-radius: 9px; background: #E8E7FC; color: #3730A3; display: flex; align-items: center; justify-content: center; font-size: 12px; flex-shrink: 0; }
+  .w-row .wt { font-size: 12px; font-weight: 700; }
+  .w-row .ws { font-size: 10px; color: #9AA39F; margin-top: 1px; }
+
+  /* Actions screen */
+  .action-card { display: flex; align-items: center; gap: 11px; background: #fff; border: 1px solid #ECEDE9; border-radius: 16px; padding: 10px 12px; }
+  .action-card .ac-icon { width: 30px; height: 30px; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; color: #fff; }
+  .action-card .act { font-size: 12px; font-weight: 700; }
+  .action-card .acs { font-size: 10px; color: #9AA39F; margin-top: 1px; }
+
+  /* Settings rows */
+  .settings-row { display: flex; align-items: center; gap: 10px; padding: 10px 2px; border-bottom: 1px solid #EFF0EC; }
+  .settings-row .sl { font-size: 12.5px; font-weight: 600; flex: 1; }
+  .settings-row .sv { font-size: 11px; color: #9AA39F; }
+  .settings-row .chev { color: #C7CDC9; font-size: 13px; }
+  .settings-row.danger .sl { color: #B04A3E; }
+  .ai-option-row { display: flex; align-items: center; justify-content: space-between; padding: 8px 2px; }
+  .ai-option-row .ol { font-size: 11.5px; font-weight: 600; }
+  .radio { width: 16px; height: 16px; border-radius: 50%; border: 1.5px solid #C7CDC9; display: flex; align-items: center; justify-content: center; }
+  .radio.on { border-color: #171B1A; }
+  .radio.on::after { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #171B1A; }
+
+  /* Profile header */
+  .profile-head { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 14px 0 8px; }
+  .profile-head .pav { width: 64px; height: 64px; border-radius: 50%; background: #171B1A; color: #E8E7FC; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 700; }
+  .profile-head .pname { font-size: 14px; font-weight: 700; }
+  .profile-head .puser { font-size: 11px; color: #9AA39F; }
+  .qr-btn { display: flex; align-items: center; gap: 5px; font-size: 10px; font-weight: 700; color: #3730A3; background: #E8E7FC; padding: 5px 10px; border-radius: 10px; margin-top: 2px; }
+
+  /* Search results */
+  .search-bar { margin: 8px 14px 4px; background: #F1F2EE; border-radius: 14px; padding: 10px 12px; font-size: 12px; color: #171B1A; font-weight: 500; }
+  .search-section-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #9AA39F; padding: 6px 14px 2px; }
+  .result-card { margin: 0 14px; padding: 9px 0; border-bottom: 1px solid #EFF0EC; }
+  .result-top { display: flex; justify-content: space-between; font-size: 10.5px; color: #9AA39F; margin-bottom: 3px; }
+  .result-snippet { font-size: 12px; line-height: 1.4; color: #171B1A; }
+  .result-snippet mark { background: #E8E7FC; color: #3730A3; border-radius: 3px; padding: 0 1px; }
+
+  /* Onboarding */
+  .onboard { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 0 26px; gap: 22px; }
+  .wordmark { font-family: -apple-system, "SF Pro Display", Arial, sans-serif; font-size: 22px; font-weight: 800; text-align: center; letter-spacing: -0.03em; }
+  .logo-mark { display:flex; align-items:center; justify-content:center; width:28px; height:28px; border-radius:9px; background:#4F46E5; flex-shrink:0; color:#fff; font-family:-apple-system,"SF Pro Display",Arial,sans-serif; font-weight:800; font-size:15px; letter-spacing:-0.02em; }
+  .logo-mark svg { width:16px; height:16px; color:#fff; }
+  .logo-mark.lg { width:96px; height:96px; border-radius:28px; box-shadow:0 10px 28px rgba(79,70,229,0.32); font-size:46px; }
+  .logo-mark.lg svg { width:52px; height:52px; }
+  .tabbar2 .t .g.w-mark { font-weight:800; font-size:17px; }
+  .w-splash {
+    font-family: -apple-system, "SF Pro Display", Arial, sans-serif;
+    font-size: 64px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    background: linear-gradient(100deg, #171B1A 38%, #4F46E5 50%, #171B1A 62%);
+    background-size: 260% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: inline-block;
+    animation: w-enter 0.65s cubic-bezier(0.22, 1, 0.36, 1) both, w-shimmer 2.4s ease-in-out 0.65s infinite;
+  }
+  @keyframes w-enter {
+    0% { opacity: 0; transform: scale(0.72) translateY(6px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+  }
+  @keyframes w-shimmer {
+    0% { background-position: 220% 0; }
+    55% { background-position: -120% 0; }
+    100% { background-position: -120% 0; }
+  }
+  .field-label { font-size: 11px; font-weight: 700; color: #6B7570; margin-bottom: 7px; }
+  .field { border: 1.5px solid #171B1A; border-radius: 12px; padding: 12px 14px; font-size: 14px; font-weight: 600; }
+  .field-help { font-size: 10.5px; color: #9AA39F; margin-top: 7px; line-height: 1.4; }
+  .cta { background: #4F46E5; color: #fff; text-align: center; font-size: 13.5px; font-weight: 700; padding: 13px 0; border-radius: 13px; }
+  .onboard-foot { text-align: center; font-size: 11px; color: #9AA39F; }
+
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<svg style="display:none" aria-hidden="true">
+  <symbol id="ic-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719" /></symbol>
+  <symbol id="ic-sparkle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z" /><path d="M20 2v4" /><path d="M22 4h-4" /><circle cx="4" cy="20" r="2" /></symbol>
+  <symbol id="ic-actions" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" /><path d="m9 12 2 2 4-4" /></symbol>
+  <symbol id="ic-person" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></symbol>
+  <symbol id="ic-pencil" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" /><path d="m15 5 4 4" /></symbol>
+  <symbol id="ic-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m21 21-4.34-4.34" /><circle cx="11" cy="11" r="8" /></symbol>
+  <symbol id="ic-gear" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915" /><circle cx="12" cy="12" r="3" /></symbol>
+  <symbol id="ic-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></symbol>
+  <symbol id="ic-folder" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z" /></symbol>
+  <symbol id="ic-flag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22V4a1 1 0 0 1 .4-.8A6 6 0 0 1 8 2c3 0 5 2 7.333 2q2 0 3.067-.8A1 1 0 0 1 20 4v10a1 1 0 0 1-.4.8A6 6 0 0 1 16 16c-3 0-5-2-8-2a6 6 0 0 0-4 1.528" /></symbol>
+  <symbol id="ic-alert" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" /><path d="M12 9v4" /><path d="M12 17h.01" /></symbol>
+  <symbol id="ic-image" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2" /><circle cx="9" cy="9" r="2" /><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" /></symbol>
+  <symbol id="ic-camera" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13.997 4a2 2 0 0 1 1.76 1.05l.486.9A2 2 0 0 0 18.003 7H20a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1.997a2 2 0 0 0 1.759-1.048l.489-.904A2 2 0 0 1 10.004 4z" /><circle cx="12" cy="13" r="3" /></symbol>
+  <symbol id="ic-doc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /><path d="M14 2v5a1 1 0 0 0 1 1h5" /><path d="M10 9H8" /><path d="M16 13H8" /><path d="M16 17H8" /></symbol>
+  <symbol id="ic-qr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect width="5" height="5" x="3" y="3" rx="1" /><rect width="5" height="5" x="16" y="3" rx="1" /><rect width="5" height="5" x="3" y="16" rx="1" /><path d="M21 16h-3a2 2 0 0 0-2 2v3" /><path d="M21 21v.01" /><path d="M12 7v3a2 2 0 0 1-2 2H7" /><path d="M3 12h.01" /><path d="M12 3h.01" /><path d="M12 16v.01" /><path d="M16 12h1" /><path d="M21 12v.01" /><path d="M12 21v-1" /></symbol>
+  <symbol id="ic-group" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><path d="M16 3.128a4 4 0 0 1 0 7.744" /><path d="M22 21v-2a4 4 0 0 0-3-3.87" /><circle cx="9" cy="7" r="4" /></symbol>
+  <symbol id="ic-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5" /></symbol>
+  <symbol id="ic-play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z" /></symbol>
+  <symbol id="ic-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4" /><path d="M16 2v4" /><rect width="18" height="18" x="3" y="4" rx="2" /><path d="M3 10h18" /></symbol>
+  <symbol id="ic-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" /><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /></symbol>
+  <symbol id="ic-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7v14" /><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z" /></symbol>
+  <symbol id="ic-briefcase" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" /><rect width="20" height="14" x="2" y="6" rx="2" /></symbol>
+  <symbol id="ic-branch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6a9 9 0 0 0-9 9V3" /><circle cx="18" cy="6" r="3" /><circle cx="6" cy="18" r="3" /></symbol>
+  <symbol id="ic-wand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72" /><path d="m14 7 3 3" /><path d="M5 6v4" /><path d="M19 14v4" /><path d="M10 2v2" /><path d="M7 8H3" /><path d="M21 16h-4" /><path d="M11 3H9" /></symbol>
+  <symbol id="ic-align-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 5H3" /><path d="M15 12H3" /><path d="M17 19H3" /></symbol>
+  <symbol id="ic-scan-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2" /><path d="M17 3h2a2 2 0 0 1 2 2v2" /><path d="M21 17v2a2 2 0 0 1-2 2h-2" /><path d="M7 21H5a2 2 0 0 1-2-2v-2" /><circle cx="12" cy="12" r="3" /><path d="m16 16-1.9-1.9" /></symbol>
+  <symbol id="ic-list-checks" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 5h8" /><path d="M13 12h8" /><path d="M13 19h8" /><path d="m3 17 2 2 4-4" /><path d="m3 7 2 2 4-4" /></symbol>
+  <symbol id="ic-calendar-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 14v2.2l1.6 1" /><path d="M16 2v4" /><path d="M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3.5" /><path d="M3 10h5" /><path d="M8 2v4" /><circle cx="16" cy="16" r="6" /></symbol>
+</svg>
+
+<div class="page-head">
+  <p class="eyebrow">NextGen AI Messaging</p>
+  <h1 class="display">Whale — chat without limits.</h1>
+  <p>Where conversations become organized, memories stay original, files move without limits, and AI helps every user chat smarter.</p>
+</div>
+
+<div class="group" style="padding-top:0.6rem">
+  <div class="group-head" style="border-top:none; padding-top:0"><h2>App Launch</h2><span>Transition screen shown while the app boots, before handing off to Waves home</span></div>
+  <div class="rack">
+
+    <div class="unit">
+      <div class="device"><div class="screen" style="align-items:center;justify-content:center">
+        <div class="w-splash">W</div>
+      </div></div>
+      <div class="caption"><div class="name">Splash — app loading</div><div class="note">Centered logo mark on white; fades into Waves home once session/data is ready</div></div>
+    </div>
+
+  </div>
+</div>
+
+<div class="group" style="padding-top:0.6rem">
+  <div class="group-head" style="border-top:none; padding-top:0"><h2>Onboarding &amp; Profile</h2><span>The two bookends — the screen that tested well, and where identity lives</span></div>
+  <div class="rack">
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="onboard">
+          <div class="wordmark">Whale</div>
+          <div>
+            <div class="field-label">CHOOSE A USERNAME</div>
+            <div class="field">@akashg</div>
+            <div class="field-help">This is how people find you on Whale — no phone number required.</div>
+          </div>
+          <div class="cta">Continue</div>
+          <div class="onboard-foot">Already have an account? Log in</div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Onboarding</div><div class="note">Kept as-is</div></div>
+    </div>
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="tab-header"><div class="row1"><div class="tt">Profile</div></div></div>
+        <div class="profile-head">
+          <div class="pav">AG</div>
+          <div class="pname">Akash Gogineni</div>
+          <div class="puser">@akashg</div>
+          <div class="qr-btn"><svg class="ico"><use href="#ic-qr"></use></svg><span>Show QR code</span></div>
+        </div>
+        <div class="body-scroll" style="padding-top:2px">
+          <div class="settings-row"><div class="sl">Privacy Settings</div><span class="chev">›</span></div>
+          <div class="settings-row"><div class="sl">W:AI Settings</div><span class="chev">›</span></div>
+          <div class="settings-row"><div class="sl">Storage and Data</div><span class="sv">2.1 GB used</span><span class="chev">›</span></div>
+          <div class="settings-row"><div class="sl">Notifications</div><span class="chev">›</span></div>
+          <div class="settings-row" style="border-bottom:none"><div class="sl">Subscription Plan</div><span class="sv">Free</span><span class="chev">›</span></div>
+        </div>
+        <div class="tabbar2">
+          <div class="t"><div class="g"><svg class="ico"><use href="#ic-chat"></use></svg></div>Waves</div>
+          <div class="t"><div class="g w-mark">W</div></div>
+          <div class="t"><div class="g"><svg class="ico"><use href="#ic-actions"></use></svg></div>Actions</div>
+          <div class="t active"><div class="g"><svg class="ico"><use href="#ic-person"></use></svg></div>Profile</div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Profile</div><div class="note">No phone number field, by design</div></div>
+    </div>
+
+  </div>
+</div>
+
+<div class="group">
+  <div class="group-head"><h2>Waves &amp; global search</h2><span>Home tab, pinned row, search-first</span></div>
+  <div class="rack">
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="tab-header">
+          <div class="row1"><div class="tt" style="font-size:20px">Waves</div><div class="ticons"><div class="icon"><svg class="ico"><use href="#ic-pencil"></use></svg></div></div></div>
+        </div>
+        <div class="body-scroll" style="padding-top:2px">
+          <div class="chat-row">
+            <div class="avatar" style="background:#171B1A"><svg class="ico"><use href="#ic-group"></use></svg></div>
+            <div class="meta"><div class="top-line"><span class="who">AI Team Band</span><span class="time">2m</span></div><div class="preview">Akash: CheXpert_Dataset.zip · 3.6 GB</div></div>
+            <div class="kind"><svg class="ico"><use href="#ic-group"></use></svg></div>
+            <div class="dot"></div>
+          </div>
+          <div class="chat-row">
+            <div class="avatar" style="background:#4F46E5"><svg class="ico"><use href="#ic-group"></use></svg></div>
+            <div class="meta"><div class="top-line"><span class="who">Family Band</span><span class="time">18m</span></div><div class="preview">Mom: don't forget dinner Sunday 6pm</div></div>
+            <div class="kind"><svg class="ico"><use href="#ic-group"></use></svg></div>
+          </div>
+          <div class="chat-row">
+            <img class="avatar" src="https://api.dicebear.com/10.x/avataaars/svg?seed=Shareef" alt="Shareef" />
+            <div class="meta"><div class="top-line"><span class="who">Shareef</span><span class="time">1h</span></div><div class="preview">sent a voice note · 0:42</div></div>
+          </div>
+          <div class="chat-row">
+            <img class="avatar" src="https://api.dicebear.com/10.x/avataaars/svg?seed=Charan" alt="Charan" />
+            <div class="meta"><div class="top-line"><span class="who">Charan</span><span class="time">3h</span></div><div class="preview">weekend trip pics are on the way</div></div>
+            <div class="dot"></div>
+          </div>
+        </div>
+        <div class="search-field"><svg class="ico"><use href="#ic-search"></use></svg><span>Search chats, files, tasks, decisions</span></div>
+        <div class="tabbar2">
+          <div class="t active"><div class="g"><svg class="ico"><use href="#ic-chat"></use></svg></div>Waves</div>
+          <div class="t"><div class="g w-mark">W</div></div>
+          <div class="t"><div class="g"><svg class="ico"><use href="#ic-actions"></use></svg></div>Actions</div>
+          <div class="t"><div class="g"><svg class="ico"><use href="#ic-person"></use></svg></div>Profile</div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Waves — home</div><div class="note">Search sits in thumb-reach, right above the tab bar</div></div>
+    </div>
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="app-header"><span class="back">‹</span><div class="titles"><div class="title">Search</div></div></div>
+        <div class="search-bar">"what did Shareef say about biryani"</div>
+        <div class="search-section-label">Messages</div>
+        <div class="result-card">
+          <div class="result-top"><span>Shareef · Direct message</span><span>3d ago</span></div>
+          <div class="result-snippet">…that <mark>biryani</mark> place near campus is open till midnight, we should…</div>
+        </div>
+        <div class="search-section-label">Bands</div>
+        <div class="result-card">
+          <div class="result-top"><span>Creator Project Band</span><span>1w ago</span></div>
+          <div class="result-snippet">Shareef: grabbing <mark>biryani</mark> before the shoot, want anything?</div>
+        </div>
+        <div class="search-section-label">Files</div>
+        <div class="result-card" style="border-bottom:none">
+          <div class="result-top"><span>Shared by Charan</span><span>3d ago</span></div>
+          <div class="result-snippet">📦 Weekend_Trip_Photos.zip</div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Search results</div><div class="note">Meaning-based, scoped to AI-allowed chats</div></div>
+    </div>
+
+  </div>
+</div>
+
+<div class="group">
+  <div class="group-head"><h2>Personal chat &amp; W:AI popup</h2><span>AI is one tap away, never a separate app</span></div>
+  <div class="rack">
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="app-header">
+          <span class="back">‹</span>
+          <img class="avatar" style="width:30px;height:30px" src="https://api.dicebear.com/10.x/avataaars/svg?seed=Shareef" alt="Shareef" />
+          <div class="titles"><div class="title">Shareef</div><div class="subtitle">Active now</div></div>
+        </div>
+        <div class="thread">
+          <div class="bubble in">Hey are we still on for the biryani place at 8?</div>
+          <div class="bubble out">yeah works for me, see you there</div>
+          <div class="bubble in">Perfect 🙌</div>
+        </div>
+        <div class="composer-wrap">
+          <div class="composer"><div class="plus">+</div><div class="ph">Message Shareef</div><div class="wbtn">W</div><div class="send">↑</div></div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Personal chat</div><div class="note">"W" sits next to send, always visible</div></div>
+    </div>
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="app-header">
+          <span class="back">‹</span>
+          <img class="avatar" style="width:30px;height:30px" src="https://api.dicebear.com/10.x/avataaars/svg?seed=Shareef" alt="Shareef" />
+          <div class="titles"><div class="title">Shareef</div><div class="subtitle">Active now</div></div>
+        </div>
+        <div class="scrim-thread">
+          <div class="thread">
+            <div class="bubble in">Hey are we still on for the biryani place at 8?</div>
+            <div class="bubble out">yeah works for me, see you there</div>
+          </div>
+          <div class="scrim"></div>
+          <div class="sheet">
+            <div class="sheet-handle"></div>
+            <div class="prompt-field"><span>W</span><span>Ask W or choose an action</span></div>
+            <div class="popup-row"><div class="pg"><svg class="ico"><use href="#ic-wand"></use></svg></div><div class="pl">Rewrite my message</div></div>
+            <div class="popup-row"><div class="pg"><svg class="ico"><use href="#ic-align-left"></use></svg></div><div class="pl">Summarize this chat</div></div>
+            <div class="popup-row"><div class="pg"><svg class="ico"><use href="#ic-scan-search"></use></svg></div><div class="pl">Find a message</div></div>
+            <div class="popup-row"><div class="pg"><svg class="ico"><use href="#ic-list-checks"></use></svg></div><div class="pl">Create action items</div></div>
+            <div class="popup-row" style="border-bottom:none"><div class="pg"><svg class="ico"><use href="#ic-calendar-clock"></use></svg></div><div class="pl">Schedule this message</div></div>
+          </div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">W:AI popup</div><div class="note">One assistant, every action, in context</div></div>
+    </div>
+
+  </div>
+</div>
+
+<div class="group">
+  <div class="group-head"><h2>W &amp; Actions</h2><span>The other two tabs</span></div>
+  <div class="rack">
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="tab-header">
+          <div class="row1"><div><div class="tt">W</div><div class="ts">Your personal AI</div></div><div class="ticons"><div class="icon"><svg class="ico"><use href="#ic-gear"></use></svg></div></div></div>
+        </div>
+        <div class="w-hero">
+          <div class="hg">ASK W ANYTHING</div>
+          <div class="hi"><svg class="ico" style="width:14px;height:14px;flex-shrink:0"><use href="#ic-sparkle"></use></svg><span class="ph">What did I miss today?</span></div>
+        </div>
+        <div class="ai-chips" style="padding-top:6px">
+          <div class="ai-chip">Pending tasks?</div>
+          <div class="ai-chip">Summarize Family Band</div>
+        </div>
+        <div class="body-scroll" style="padding-top:2px">
+          <div class="w-sect-label">Unread summaries</div>
+          <div class="w-row"><div class="wg"><svg class="ico"><use href="#ic-sparkle"></use></svg></div><div><div class="wt">AI Team Band</div><div class="ws">3 updates since you left</div></div></div>
+          <div class="w-sect-label">Pending tasks</div>
+          <div class="w-row"><div class="wg"><svg class="ico"><use href="#ic-check"></use></svg></div><div><div class="wt">Review privacy labels</div><div class="ws">Due Monday</div></div></div>
+        </div>
+        <div class="tabbar2">
+          <div class="t"><div class="g"><svg class="ico"><use href="#ic-chat"></use></svg></div>Waves</div>
+          <div class="t active"><div class="g w-mark">W</div></div>
+          <div class="t"><div class="g"><svg class="ico"><use href="#ic-actions"></use></svg></div>Actions</div>
+          <div class="t"><div class="g"><svg class="ico"><use href="#ic-person"></use></svg></div>Profile</div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">W — main screen</div><div class="note">Questions across every allowed chat</div></div>
+    </div>
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="tab-header">
+          <div class="row1"><div><div class="tt">W</div><div class="ts">Your personal AI</div></div><div class="ticons"><div class="icon"><svg class="ico"><use href="#ic-gear"></use></svg></div></div></div>
+        </div>
+        <div class="w-hero">
+          <div class="hg">ASK W ANYTHING</div>
+          <div class="hi"><svg class="ico" style="width:14px;height:14px;flex-shrink:0"><use href="#ic-sparkle"></use></svg><span style="color:#fff">what did I miss today?</span></div>
+        </div>
+        <div class="w-answer">
+          <div class="wa-text">Since yesterday: Akash shared the wedding video in AI Team Band, Priya finished the privacy-label task, and Family Band got a new reminder for Grandma's medication.</div>
+          <div class="wa-cites">
+            <div class="wa-chip">AI Team Band · 2h ago</div>
+            <div class="wa-chip">AI Team Band · 5h ago</div>
+            <div class="wa-chip">Family Band · this morning</div>
+          </div>
+        </div>
+        <div class="ai-chips" style="padding-top:10px">
+          <div class="ai-chip">What tasks are still open?</div>
+          <div class="ai-chip">Summarize Family Band</div>
+        </div>
+        <div class="tabbar2">
+          <div class="t"><div class="g"><svg class="ico"><use href="#ic-chat"></use></svg></div>Waves</div>
+          <div class="t active"><div class="g w-mark">W</div></div>
+          <div class="t"><div class="g"><svg class="ico"><use href="#ic-actions"></use></svg></div>Actions</div>
+          <div class="t"><div class="g"><svg class="ico"><use href="#ic-person"></use></svg></div>Profile</div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">W — query result</div><div class="note">Typing collapses to an answer with citations, not a search-results list</div></div>
+    </div>
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="tab-header"><div class="row1"><div style="display:flex;align-items:center;gap:10px"><div class="logo-mark"><svg class="ico"><use href="#ic-actions"></use></svg></div><div class="tt">Actions</div></div></div></div>
+        <div class="body-scroll">
+          <div class="action-card"><div class="ac-icon" style="background:#35606B"><svg class="ico"><use href="#ic-check"></use></svg></div><div><div class="act">2 tasks due today</div><div class="acs">AI Team Band</div></div></div>
+          <div class="action-card"><div class="ac-icon" style="background:#4F46E5"><svg class="ico"><use href="#ic-clock"></use></svg></div><div><div class="act">1 scheduled message pending</div><div class="acs">Sends tomorrow 9:00 AM</div></div></div>
+          <div class="action-card"><div class="ac-icon" style="background:#171B1A">@</div><div><div class="act">Shareef mentioned you</div><div class="acs">Creator Project Band</div></div></div>
+          <div class="action-card"><div class="ac-icon" style="background:#4B5D66"><svg class="ico"><use href="#ic-flag"></use></svg></div><div><div class="act">3 unread decisions</div><div class="acs">AI Team Band</div></div></div>
+        </div>
+        <div class="tabbar2">
+          <div class="t"><div class="g"><svg class="ico"><use href="#ic-chat"></use></svg></div>Waves</div>
+          <div class="t"><div class="g w-mark">W</div></div>
+          <div class="t active"><div class="g"><svg class="ico"><use href="#ic-actions"></use></svg></div>Actions</div>
+          <div class="t"><div class="g"><svg class="ico"><use href="#ic-person"></use></svg></div>Profile</div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Actions</div><div class="note">One feed: tasks, schedule, alerts, mentions</div></div>
+    </div>
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="app-header">
+          <span class="back">‹</span>
+          <div class="avatar" style="width:30px;height:30px;background:#E0894F"><svg class="ico"><use href="#ic-group"></use></svg></div>
+          <div class="titles"><div class="title">Miami Tour</div></div>
+        </div>
+        <div class="scrim-thread">
+          <div class="thread">
+            <div class="bubble in">Priya: so are we leaving Saturday morning or Friday night?</div>
+            <div class="bubble in">Charan: I can drive, just need gas money from everyone</div>
+          </div>
+          <div class="scrim"></div>
+          <div class="sheet">
+            <div class="sheet-handle"></div>
+            <div class="prompt-field"><span>W</span><span>Ask W or choose an action</span></div>
+            <div class="popup-row"><div class="pg"><svg class="ico"><use href="#ic-wand"></use></svg></div><div class="pl">Rewrite my message</div></div>
+            <div class="popup-row"><div class="pg"><svg class="ico"><use href="#ic-align-left"></use></svg></div><div class="pl">Summarize this chat</div></div>
+            <div class="popup-row"><div class="pg"><svg class="ico"><use href="#ic-scan-search"></use></svg></div><div class="pl">Find a message</div></div>
+            <div class="popup-row"><div class="pg"><svg class="ico"><use href="#ic-list-checks"></use></svg></div><div class="pl">Create action items</div></div>
+            <div class="popup-row" style="border-bottom:none"><div class="pg"><svg class="ico"><use href="#ic-calendar-clock"></use></svg></div><div class="pl">Schedule this message</div></div>
+          </div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">W:AI popup — inside a Band</div><div class="note">Same 5 actions everywhere, but every answer is scoped to this chat's messages</div></div>
+    </div>
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="app-header">
+          <span class="back">‹</span>
+          <div class="avatar" style="width:30px;height:30px;background:#E0894F"><svg class="ico"><use href="#ic-group"></use></svg></div>
+          <div class="titles"><div class="title">Miami Tour</div></div>
+        </div>
+        <div class="scrim-thread">
+          <div class="thread">
+            <div class="bubble in">Priya: booked the Airbnb, check-in is 4pm</div>
+          </div>
+          <div class="scrim"></div>
+          <div class="sheet">
+            <div class="sheet-handle"></div>
+            <div class="sheet-title">Chat summary</div>
+            <div class="wa-text" style="padding:0 0 12px">Everyone's leaving Saturday 8 AM from Charan's — he's driving, so split gas ~$15 each. Priya booked the Airbnb, check-in at 4pm. Shareef's bringing the cooler and speaker.</div>
+            <div class="wa-cites">
+              <div class="wa-chip">Charan · 1h ago</div>
+              <div class="wa-chip">Priya · 2 days ago</div>
+              <div class="wa-chip">Shareef · 5h ago</div>
+            </div>
+          </div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Summarize this chat</div><div class="note">Pulls from every message since you last read, cites who said what</div></div>
+    </div>
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="app-header">
+          <span class="back">‹</span>
+          <div class="avatar" style="width:30px;height:30px;background:#E0894F"><svg class="ico"><use href="#ic-group"></use></svg></div>
+          <div class="titles"><div class="title">Miami Tour</div></div>
+        </div>
+        <div class="scrim-thread">
+          <div class="thread">
+            <div class="bubble in">Charan: I can drive, just need gas money from everyone</div>
+          </div>
+          <div class="scrim"></div>
+          <div class="sheet">
+            <div class="sheet-handle"></div>
+            <div class="sheet-title">Rewrite my message</div>
+            <div style="font-size:11px; color:#9AA39F; text-decoration:line-through; padding:2px 0 8px">yo can everyone venmo me for gas before sat</div>
+            <div class="bubble out" style="margin:0 0 12px">Hey everyone — can you send gas money before Saturday? Should be about $15 each.</div>
+            <div class="send-cta">Use this</div>
+          </div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Rewrite my message</div><div class="note">Cleans up tone and clarity before you send, never sends on its own</div></div>
+    </div>
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="app-header">
+          <span class="back">‹</span>
+          <div class="avatar" style="width:30px;height:30px;background:#E0894F"><svg class="ico"><use href="#ic-group"></use></svg></div>
+          <div class="titles"><div class="title">Miami Tour</div></div>
+        </div>
+        <div class="w-hero" style="margin:8px 14px"><div class="hi"><svg class="ico" style="width:14px;height:14px;flex-shrink:0"><use href="#ic-search"></use></svg><span style="color:#fff">find the airbnb address</span></div></div>
+        <div class="body-scroll" style="padding-top:2px">
+          <div class="result-card">
+            <div class="result-top"><span>Priya · 2d ago</span></div>
+            <div class="result-snippet">booked the <mark>Airbnb</mark>, address is 214 Ocean Ave, check-in is 4pm</div>
+          </div>
+          <div class="result-card" style="border-bottom:none">
+            <div class="result-top"><span>Charan · 1d ago</span></div>
+            <div class="result-snippet">sent the <mark>Airbnb</mark> link in the group email too, has parking for 2 cars</div>
+          </div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Find a message</div><div class="note">Natural-language search scoped to this chat, not the whole app</div></div>
+    </div>
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="app-header">
+          <span class="back">‹</span>
+          <div class="avatar" style="width:30px;height:30px;background:#E0894F"><svg class="ico"><use href="#ic-group"></use></svg></div>
+          <div class="titles"><div class="title">Miami Tour</div></div>
+        </div>
+        <div class="scrim-thread">
+          <div class="thread">
+            <div class="bubble in">Charan: I'll get the ice, can someone bring extra chairs?</div>
+            <div class="bubble in">Priya: I have a cooler bag, will bring snacks too</div>
+          </div>
+          <div class="scrim"></div>
+          <div class="sheet">
+            <div class="sheet-handle"></div>
+            <div class="sheet-title">Create action items</div>
+            <div class="task-card" style="margin-bottom:8px"><div class="task-check"></div><div class="task-body"><div class="task-title">Grab ice</div><div class="task-sub">Charan · before Saturday</div></div></div>
+            <div class="task-card"><div class="task-check"></div><div class="task-body"><div class="task-title">Bring extra chairs</div><div class="task-sub">Unassigned · before Saturday</div></div></div>
+            <div class="send-cta" style="margin-top:12px">Add 2 tasks</div>
+          </div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Create action items</div><div class="note">Reads intent from the last few messages, you confirm before anything is created</div></div>
+    </div>
+
+
+  </div>
+</div>
+
+<div class="group">
+  <div class="group-head"><h2>Bands</h2><span>A group chat first — organization is available, not imposed</span></div>
+  <div class="rack" style="grid-template-columns: repeat(3, 1fr)">
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="app-header">
+          <span class="back">‹</span>
+          <div class="titles"><div class="title">AI Team Band</div><div class="subtitle">128 members</div></div>
+          <div class="icon">⋯</div>
+        </div>
+        <div class="summary-card">
+          <div class="close">×</div>
+          <div class="head"><svg class="ico" style="width:.85em;height:.85em"><use href="#ic-sparkle"></use></svg> SINCE YOU LEFT · 3 UPDATES</div>
+          <ul class="summary-list">
+            <li>Akash shared the wedding video</li>
+            <li>Priya finished the privacy-label task</li>
+            <li>Team decided to ship search before memory</li>
+          </ul>
+        </div>
+        <div class="thread" style="padding-top:0">
+          <div class="bubble in">alright, search is looking solid in staging</div>
+          <div class="bubble out">nice — memory next then</div>
+        </div>
+        <div class="shortcut-row">
+          <div class="shortcut-chip"><svg class="ico"><use href="#ic-folder"></use></svg> Files</div>
+          <div class="shortcut-chip"><svg class="ico"><use href="#ic-check"></use></svg> Tasks</div>
+          <div class="shortcut-chip"><svg class="ico"><use href="#ic-clock"></use></svg> Scheduled</div>
+        </div>
+        <div class="composer-wrap">
+          <div class="composer"><div class="plus">+</div><div class="ph">Message AI Team Band</div><div class="wbtn">W</div><div class="send">↑</div></div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Band chat</div><div class="note">Summary card + shortcut chips, not a tab strip</div></div>
+    </div>
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="app-header">
+          <span class="back">‹</span>
+          <div class="titles"><div class="title">Files</div><div class="subtitle">AI Team Band</div></div>
+        </div>
+        <div class="filter-row">
+          <div class="filter-chip on">All</div><div class="filter-chip">Photos</div><div class="filter-chip">Videos</div><div class="filter-chip">Expiring soon</div>
+        </div>
+        <div class="body-scroll">
+          <div class="file-row"><div class="ft"><svg class="ico"><use href="#ic-folder"></use></svg></div><div><div class="fn">CheXpert_Dataset.zip</div><div class="fm">3.6 GB · No compression</div></div><div class="chev">›</div></div>
+          <div class="file-row"><div class="ft"><svg class="ico"><use href="#ic-doc"></use></svg></div><div><div class="fn">Deck_v3.pdf</div><div class="fm">12 MB</div></div><div class="chev">›</div></div>
+          <div class="file-row"><div class="ft"><svg class="ico"><use href="#ic-folder"></use></svg></div><div><div class="fn">Site_Photos.zip</div><div class="fm">340 MB</div></div><div class="chev">›</div></div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Smart File View</div><div class="note">Opened from a Band shortcut, not a global tab</div></div>
+    </div>
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="app-header"><span class="back">‹</span><div class="titles"><div class="title">Tasks</div><div class="subtitle">AI Team Band</div></div></div>
+        <div class="body-scroll">
+          <div class="task-card"><div class="task-check">✓</div><div class="task-body"><div class="task-title">Ship search to staging</div><div class="task-sub">Akash · due Fri</div></div><div class="status-pill progress">In progress</div></div>
+          <div class="task-card"><div class="task-check"></div><div class="task-body"><div class="task-title">Review privacy labels</div><div class="task-sub">Priya · due Mon</div></div><div class="status-pill todo">To do</div></div>
+          <div class="task-card"><div class="task-check done">✓</div><div class="task-body"><div class="task-title done">Finalize band_memory job</div><div class="task-sub">Charan · done Tue</div></div><div class="status-pill done">Done</div></div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Task View</div><div class="note">AI-detected or created from a message</div></div>
+    </div>
+
+  </div>
+
+  <div class="rack" style="grid-template-columns: repeat(2, 1fr); max-width: 660px; gap: 2.2rem 4rem; margin-top: 2.2rem">
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="app-header">
+          <span class="back">‹</span>
+          <div class="titles"><div class="title">Family Band</div><div class="subtitle">6 members</div></div>
+          <div class="icon">⋯</div>
+        </div>
+        <div class="thread">
+          <div class="bubble in">Mom: don't forget dinner Sunday 6pm</div>
+          <div class="bubble out">on it, I'll be there by 5:30</div>
+          <div class="bubble in">Dad: I'll bring the car in for its checkup Monday</div>
+        </div>
+        <div class="shortcut-row">
+          <div class="shortcut-chip"><svg class="ico"><use href="#ic-clock"></use></svg> Reminders</div>
+          <div class="shortcut-chip"><svg class="ico"><use href="#ic-calendar"></use></svg> Calendar</div>
+          <div class="shortcut-chip"><svg class="ico"><use href="#ic-alert"></use></svg> Emergency</div>
+          <div class="shortcut-chip"><svg class="ico"><use href="#ic-folder"></use></svg> Files</div>
+        </div>
+        <div class="composer-wrap">
+          <div class="composer"><div class="plus">+</div><div class="ph">Message Family Band</div><div class="wbtn">W</div><div class="send">↑</div></div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Family Band chat</div><div class="note">Same Band structure, family-specific shortcuts</div></div>
+    </div>
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="app-header"><span class="back">‹</span><div class="titles"><div class="title">Calendar</div><div class="subtitle">Family Band</div></div></div>
+        <div class="body-scroll">
+          <div style="display:flex; justify-content:space-between; padding:2px 0 4px">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:4px;font-size:9.5px;color:#9AA39F;width:26px"><span>M</span><div style="width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;color:#171B1A;font-weight:600">8</div></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:4px;font-size:9.5px;color:#9AA39F;width:26px"><span>T</span><div style="width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;color:#171B1A;font-weight:600">9</div></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:4px;font-size:9.5px;color:#9AA39F;width:26px"><span>W</span><div style="width:22px;height:22px;border-radius:50%;background:#4F46E5;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600">10</div></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:4px;font-size:9.5px;color:#9AA39F;width:26px"><span>T</span><div style="width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;color:#171B1A;font-weight:600">11</div></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:4px;font-size:9.5px;color:#9AA39F;width:26px"><span>F</span><div style="width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;color:#171B1A;font-weight:600">12</div></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:4px;font-size:9.5px;color:#9AA39F;width:26px"><span>S</span><div style="width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;color:#171B1A;font-weight:600">13</div></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:4px;font-size:9.5px;color:#9AA39F;width:26px"><span>S</span><div style="width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;color:#171B1A;font-weight:600">14</div></div>
+          </div>
+          <div class="w-row"><div class="wg"><svg class="ico"><use href="#ic-calendar"></use></svg></div><div><div class="wt">Dinner at Mom's</div><div class="ws">Sun · 6:00 PM</div></div></div>
+          <div class="w-row"><div class="wg"><svg class="ico"><use href="#ic-calendar"></use></svg></div><div><div class="wt">Dad's checkup</div><div class="ws">Mon · 10:00 AM</div></div></div>
+          <div class="rewrite-card">
+            <div class="label">Reminder</div>
+            <div class="txt">Grandma's medication — 8:00 AM daily</div>
+          </div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Family Band — Calendar</div><div class="note">Opened from the Calendar shortcut</div></div>
+    </div>
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="app-header">
+          <span class="back">‹</span>
+          <div class="titles"><div class="title">Roommates</div><div class="subtitle">4 members</div></div>
+          <div class="icon">⋯</div>
+        </div>
+        <div class="thread">
+          <div class="bubble in">Priya: rent's due the 1st, splitting as usual?</div>
+          <div class="bubble out">yep, venmo works</div>
+          <div class="bubble in">Charan: I'll grab groceries tonight</div>
+        </div>
+        <div class="shortcut-row">
+          <div class="shortcut-chip"><svg class="ico"><use href="#ic-folder"></use></svg> Files</div>
+          <div class="shortcut-chip"><svg class="ico"><use href="#ic-actions"></use></svg> Tasks</div>
+          <div class="shortcut-chip"><svg class="ico"><use href="#ic-sparkle"></use></svg> AI Summary</div>
+        </div>
+        <div class="composer-wrap">
+          <div class="composer"><div class="plus">+</div><div class="ph">Message Roommates</div><div class="wbtn">W</div><div class="send">↑</div></div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">General Band chat</div><div class="note">Everyday groups — files, tasks, AI summary, nothing more</div></div>
+    </div>
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="app-header">
+          <span class="back">‹</span>
+          <div class="titles"><div class="title">GSU AI Project</div><div class="subtitle">Study · 5 members</div></div>
+          <div class="icon">⋯</div>
+        </div>
+        <div class="thread">
+          <div class="bubble in">Charan: final report is due Friday</div>
+          <div class="ai-suggest"><svg class="ico" style="width:12px;height:12px"><use href="#ic-flag"></use></svg> Add to Deadlines?</div>
+          <div class="bubble in">Akash: uploaded the dataset</div>
+          <div class="ai-suggest"><svg class="ico" style="width:12px;height:12px"><use href="#ic-doc"></use></svg> Save to Notes?</div>
+        </div>
+        <div class="shortcut-row">
+          <div class="shortcut-chip"><svg class="ico"><use href="#ic-flag"></use></svg> Deadlines</div>
+          <div class="shortcut-chip"><svg class="ico"><use href="#ic-doc"></use></svg> Notes</div>
+          <div class="shortcut-chip"><svg class="ico"><use href="#ic-folder"></use></svg> Files</div>
+          <div class="shortcut-chip"><svg class="ico"><use href="#ic-sparkle"></use></svg> AI Summary</div>
+        </div>
+        <div class="composer-wrap">
+          <div class="composer"><div class="plus">+</div><div class="ph">Message GSU AI Project</div><div class="wbtn">W</div><div class="send">↑</div></div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Study Band chat</div><div class="note">Inline suggestions turn chat messages into Deadlines/Notes — nothing is auto-created without confirming</div></div>
+    </div>
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="app-header">
+          <span class="back">‹</span>
+          <div class="titles"><div class="title">Wedding Film</div><div class="subtitle">Studio · 12 members</div></div>
+          <div class="icon">⋯</div>
+        </div>
+        <div class="thread">
+          <div class="bubble in">Priya: uploaded teaser_v2.mov</div>
+          <div class="ai-suggest"><svg class="ico" style="width:12px;height:12px"><use href="#ic-image"></use></svg> Save to Media?</div>
+          <div class="bubble in">Client: intro feels too long, music is good</div>
+          <div class="ai-suggest"><svg class="ico" style="width:12px;height:12px"><use href="#ic-flag"></use></svg> Mark as Feedback?</div>
+        </div>
+        <div class="shortcut-row">
+          <div class="shortcut-chip"><svg class="ico"><use href="#ic-image"></use></svg> Media</div>
+          <div class="shortcut-chip"><svg class="ico"><use href="#ic-flag"></use></svg> Feedback</div>
+          <div class="shortcut-chip"><svg class="ico"><use href="#ic-folder"></use></svg> Files</div>
+          <div class="shortcut-chip"><svg class="ico"><use href="#ic-sparkle"></use></svg> AI Summary</div>
+        </div>
+        <div class="composer-wrap">
+          <div class="composer"><div class="plus">+</div><div class="ph">Message Wedding Film</div><div class="wbtn">W</div><div class="send">↑</div></div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Studio Band chat</div><div class="note">Media = original-quality files; Feedback = messages tagged as client/team notes</div></div>
+    </div>
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="app-header">
+          <span class="back">‹</span>
+          <div class="titles"><div class="title">H100 Migration</div><div class="subtitle">Squad · 128 members</div></div>
+          <div class="icon">⋯</div>
+        </div>
+        <div class="thread">
+          <div class="bubble in">Shareef: let's expose port 443 through the WAF</div>
+          <div class="ai-suggest"><svg class="ico" style="width:12px;height:12px"><use href="#ic-check"></use></svg> Save as Decision?</div>
+          <div class="bubble in">Adnan: Akash, prepare the demo video by tonight</div>
+          <div class="ai-suggest"><svg class="ico" style="width:12px;height:12px"><use href="#ic-actions"></use></svg> Turn into task?</div>
+        </div>
+        <div class="shortcut-row">
+          <div class="shortcut-chip"><svg class="ico"><use href="#ic-actions"></use></svg> Tasks</div>
+          <div class="shortcut-chip"><svg class="ico"><use href="#ic-check"></use></svg> Decisions</div>
+          <div class="shortcut-chip"><svg class="ico"><use href="#ic-folder"></use></svg> Files</div>
+          <div class="shortcut-chip"><svg class="ico"><use href="#ic-sparkle"></use></svg> AI Summary</div>
+        </div>
+        <div class="composer-wrap">
+          <div class="composer"><div class="plus">+</div><div class="ph">Message H100 Migration</div><div class="wbtn">W</div><div class="send">↑</div></div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Squad Band chat</div><div class="note">Decisions and Tasks both start from a message — long-press or accept the inline suggestion</div></div>
+    </div>
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="app-header">
+          <span class="back">‹</span>
+          <div class="titles"><div class="title">AI Engineers in Atlanta</div><div class="subtitle">Channel · 842 followers</div></div>
+          <div class="icon">⋯</div>
+        </div>
+        <div class="body-scroll" style="gap:10px">
+          <div class="pin-row">
+            <div class="pg" style="background:#4F46E5"><svg class="ico" style="width:15px;height:15px"><use href="#ic-flag"></use></svg></div>
+            <div><div class="pt">Monthly meetup schedule is up — first Thursday of every month.</div><div class="pm">Announcements · admin-only posting</div></div>
+          </div>
+          <div class="list-label">Sub-Bands</div>
+          <div class="shortcut-chip" style="width:fit-content"><svg class="ico"><use href="#ic-chat"></use></svg> General</div>
+          <div class="shortcut-chip" style="width:fit-content;margin-top:6px"><svg class="ico"><use href="#ic-briefcase"></use></svg> Job Board</div>
+        </div>
+        <div class="shortcut-row">
+          <div class="shortcut-chip"><svg class="ico"><use href="#ic-flag"></use></svg> Announcements</div>
+          <div class="shortcut-chip"><svg class="ico"><use href="#ic-group"></use></svg> Followers</div>
+          <div class="shortcut-chip"><svg class="ico"><use href="#ic-sparkle"></use></svg> AI Summary</div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Channel Band home</div><div class="note">Broadcast-first: Announcements + Sub-Bands, no composer on the home view itself</div></div>
+    </div>
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="app-header"><span class="back">‹</span><div class="titles"><div class="title">Notes</div><div class="subtitle">GSU AI Project</div></div></div>
+        <div class="body-scroll">
+          <div class="pin-row"><div class="pg" style="background:#8B85A8"><svg class="ico" style="width:15px;height:15px"><use href="#ic-doc"></use></svg></div><div><div class="pt">dataset_v2.csv — Akash shared the cleaned dataset for the project</div><div class="pm">Pinned from chat · 2h ago</div></div></div>
+          <div class="pin-row"><div class="pg" style="background:#8B85A8"><svg class="ico" style="width:15px;height:15px"><use href="#ic-doc"></use></svg></div><div><div class="pt">Office hours moved to Wednesdays 3-5pm this semester</div><div class="pm">Pinned from chat · yesterday</div></div></div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Notes (Study)</div><div class="note">Same mechanism as Decisions/Feedback — pin a message, tag it "note"</div></div>
+    </div>
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="app-header"><span class="back">‹</span><div class="titles"><div class="title">Feedback</div><div class="subtitle">Wedding Film</div></div></div>
+        <div class="body-scroll">
+          <div class="pin-row"><div class="pg" style="background:#35606B"><svg class="ico" style="width:15px;height:15px"><use href="#ic-flag"></use></svg></div><div><div class="pt">Intro feels too long, music is good</div><div class="pm">Client · pinned 3h ago</div></div></div>
+          <div class="pin-row"><div class="pg" style="background:#35606B"><svg class="ico" style="width:15px;height:15px"><use href="#ic-flag"></use></svg></div><div><div class="pt">Can we brighten the ceremony shots a touch?</div><div class="pm">Priya · pinned yesterday</div></div></div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Feedback (Studio)</div><div class="note">Same mechanism as Notes/Decisions — pin a message, tag it "feedback"</div></div>
+    </div>
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="app-header"><span class="back">‹</span><div class="titles"><div class="title">Decisions</div><div class="subtitle">H100 Migration</div></div></div>
+        <div class="body-scroll">
+          <div class="pin-row"><div class="pg" style="background:#4B5D66"><svg class="ico" style="width:15px;height:15px"><use href="#ic-check"></use></svg></div><div><div class="pt">Expose port 443 through the WAF, not directly</div><div class="pm">Shareef · pinned 1h ago</div></div></div>
+          <div class="pin-row"><div class="pg" style="background:#4B5D66"><svg class="ico" style="width:15px;height:15px"><use href="#ic-check"></use></svg></div><div><div class="pt">Use Cloudflare R2 for file storage instead of S3</div><div class="pm">Akash · pinned 2 days ago</div></div></div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Decisions (Squad)</div><div class="note">Same mechanism as Notes/Feedback — pin a message, tag it "decision"</div></div>
+    </div>
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="app-header"><span class="back">‹</span><div class="titles"><div class="title">Media</div><div class="subtitle">Wedding Film</div></div></div>
+        <div class="body-scroll">
+          <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap:8px">
+            <div style="aspect-ratio:1; border-radius:12px; background:#171B1A; display:flex; align-items:flex-end; padding:8px; color:#fff; font-size:9px; font-weight:600; position:relative"><svg class="ico" style="position:absolute; top:8px; right:8px; width:14px; height:14px"><use href="#ic-play"></use></svg>teaser_v2.mov</div>
+            <div style="aspect-ratio:1; border-radius:12px; background:#35606B; display:flex; align-items:flex-end; padding:8px; color:#fff; font-size:9px; font-weight:600"><svg class="ico" style="position:absolute; top:8px; right:8px; width:14px; height:14px"><use href="#ic-image"></use></svg>ceremony_04.jpg</div>
+            <div style="aspect-ratio:1; border-radius:12px; background:#4B5D66; display:flex; align-items:flex-end; padding:8px; color:#fff; font-size:9px; font-weight:600">ceremony_09.jpg</div>
+            <div style="aspect-ratio:1; border-radius:12px; background:#8B85A8; display:flex; align-items:flex-end; padding:8px; color:#fff; font-size:9px; font-weight:600">reception.mov</div>
+          </div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Media (Studio)</div><div class="note">Filtered Files view — photos/videos only, original quality preserved</div></div>
+    </div>
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="app-header"><span class="back">‹</span><div class="titles"><div class="title">Add Section</div><div class="subtitle">H100 Migration</div></div></div>
+        <div class="body-scroll">
+          <div><div class="field-label">SECTION NAME</div><div class="field">Backend</div></div>
+          <div class="list-label">Mode</div>
+          <div class="cat-row on"><div class="cg"><svg class="ico"><use href="#ic-chat"></use></svg></div><div><div class="cn">Chat</div><div class="cd">Open discussion, anyone can post</div></div><div class="cchk"><svg class="ico"><use href="#ic-check"></use></svg></div></div>
+          <div class="cat-row"><div class="cg"><svg class="ico"><use href="#ic-flag"></use></svg></div><div><div class="cn">Announcement</div><div class="cd">Admin-only posting, everyone reads</div></div></div>
+          <div class="cat-row"><div class="cg"><svg class="ico"><use href="#ic-branch"></use></svg></div><div><div class="cn">Sub-Band</div><div class="cd">A focused discussion thread</div></div></div>
+          <div class="cat-row"><div class="cg"><svg class="ico"><use href="#ic-folder"></use></svg></div><div><div class="cn">Files</div><div class="cd">A dedicated files-only space</div></div></div>
+          <div class="cat-row"><div class="cg"><svg class="ico"><use href="#ic-actions"></use></svg></div><div><div class="cn">Tasks</div><div class="cd">A dedicated task list</div></div></div>
+        </div>
+        <div class="composer-wrap" style="padding-top:0"><div class="send-cta" style="margin:0">Add Section</div></div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Add Section</div><div class="note">Same members as the parent Band — available on any template, from the Overflow Menu. Categorized sub-discussion (e.g. Housing inside a GSU Band) is a Sub-Band-mode Section, not a separate Band.</div></div>
+    </div>
+  </div>
+
+  <div class="rack" style="grid-template-columns: repeat(3, 1fr); margin-top: 2.2rem">
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="app-header"><span class="back">‹</span><div class="titles"><div class="title">Create Band</div></div></div>
+        <div class="body-scroll">
+          <div>
+            <div class="field-label">BAND NAME</div>
+            <div class="field">GSU AI Project</div>
+          </div>
+          <div class="list-label">Visibility</div>
+          <div class="vis-card on"><div class="vg"><svg class="ico"><use href="#ic-person"></use></svg></div><div><div class="vn">Private</div><div class="vd">Invite-only. For Family, Study, Studio, or Squad.</div></div><div class="vchk"><svg class="ico"><use href="#ic-check"></use></svg></div></div>
+          <div class="vis-card"><div class="vg"><svg class="ico"><use href="#ic-group"></use></svg></div><div><div class="vn">Public</div><div class="vd">Discoverable. Needs a unique handle.</div></div></div>
+        </div>
+        <div class="composer-wrap" style="padding-top:0"><div class="send-cta" style="margin:0">Continue</div></div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Create Band — 1. Visibility</div><div class="note">First choice: who can find and join this Band</div></div>
+    </div>
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="app-header"><span class="back">‹</span><div class="titles"><div class="title">Choose Template</div><div class="subtitle">Private Band</div></div></div>
+        <div class="body-scroll">
+          <div class="cat-row"><div class="cg"><svg class="ico"><use href="#ic-chat"></use></svg></div><div><div class="cn">General</div><div class="cd">Files, tasks, AI summary</div></div></div>
+          <div class="cat-row"><div class="cg"><svg class="ico"><use href="#ic-home"></use></svg></div><div><div class="cn">Family</div><div class="cd">Reminders, calendar, emergency, files</div></div></div>
+          <div class="cat-row on"><div class="cg"><svg class="ico"><use href="#ic-book"></use></svg></div><div><div class="cn">Study</div><div class="cd">Deadlines, notes, files</div></div><div class="cchk"><svg class="ico"><use href="#ic-check"></use></svg></div></div>
+          <div class="cat-row"><div class="cg"><svg class="ico"><use href="#ic-camera"></use></svg></div><div><div class="cn">Studio</div><div class="cd">Media, feedback, files</div></div></div>
+          <div class="cat-row"><div class="cg"><svg class="ico"><use href="#ic-briefcase"></use></svg></div><div><div class="cn">Squad</div><div class="cd">Tasks, decisions, files</div></div></div>
+        </div>
+        <div class="composer-wrap" style="padding-top:0"><div class="send-cta" style="margin:0">Continue</div></div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Create Band — 2a. Template (Private)</div><div class="note">Family/Study/Studio/Squad are always private — no visibility choice for these</div></div>
+    </div>
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="app-header"><span class="back">‹</span><div class="titles"><div class="title">Choose Template</div><div class="subtitle">Public Band</div></div></div>
+        <div class="body-scroll">
+          <div class="cat-row"><div class="cg"><svg class="ico"><use href="#ic-chat"></use></svg></div><div><div class="cn">General</div><div class="cd">Open discussion, publicly discoverable</div></div></div>
+          <div class="cat-row on"><div class="cg"><svg class="ico"><use href="#ic-flag"></use></svg></div><div><div class="cn">Channel</div><div class="cd">Announcements, Sub-Bands, followers</div></div><div class="cchk"><svg class="ico"><use href="#ic-check"></use></svg></div></div>
+        </div>
+        <div class="composer-wrap" style="padding-top:0"><div class="send-cta" style="margin:0">Continue</div></div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Create Band — 2b. Template (Public)</div><div class="note">Only General and Channel can be public</div></div>
+    </div>
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="app-header"><span class="back">‹</span><div class="titles"><div class="title">Add Members</div><div class="subtitle">Study Band</div></div></div>
+        <div class="body-scroll">
+          <div class="module-row"><div class="mn"><img class="avatar" style="width:26px;height:26px" src="https://api.dicebear.com/10.x/avataaars/svg?seed=Charan" alt="" /> Charan</div><div class="toggle on"></div></div>
+          <div class="module-row"><div class="mn"><img class="avatar" style="width:26px;height:26px" src="https://api.dicebear.com/10.x/avataaars/svg?seed=Priya" alt="" /> Priya</div><div class="toggle on"></div></div>
+          <div class="module-row"><div class="mn"><img class="avatar" style="width:26px;height:26px" src="https://api.dicebear.com/10.x/avataaars/svg?seed=Shareef" alt="" /> Shareef</div><div class="toggle"></div></div>
+        </div>
+        <div class="composer-wrap" style="padding-top:0"><div class="send-cta" style="margin:0">Continue</div></div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Create Band — 3a. Add Members (Private path)</div><div class="note">Skipped entirely on the Public path</div></div>
+    </div>
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="app-header"><span class="back">‹</span><div class="titles"><div class="title">Band Details</div><div class="subtitle">Public Band</div></div></div>
+        <div class="body-scroll">
+          <div><div class="field-label">UNIQUE HANDLE</div><div class="field">@gsu-ai-project</div></div>
+          <div style="margin-top:12px"><div class="field-label">DESCRIPTION</div><div class="field" style="font-weight:500;font-size:12.5px">A space for GSU students building AI projects together.</div></div>
+          <div class="list-label" style="margin-top:12px">Discovery category</div>
+          <div class="shortcut-row">
+            <div class="shortcut-chip" style="background:#171B1A;color:#fff">University</div>
+            <div class="shortcut-chip">Local</div>
+            <div class="shortcut-chip">Professional</div>
+          </div>
+        </div>
+        <div class="composer-wrap" style="padding-top:0"><div class="send-cta" style="margin:0">Continue</div></div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Create Band — 3b. Handle &amp; Details (Public path)</div><div class="note">Handle must be globally unique — checked live as typed</div></div>
+    </div>
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="app-header"><span class="back">‹</span><div class="titles"><div class="title">Join Mode</div><div class="subtitle">Public Band</div></div></div>
+        <div class="body-scroll">
+          <div class="join-row on"><div><div class="jn">Open Join</div><div class="jd">Anyone can join instantly</div></div><div class="jchk"><svg class="ico"><use href="#ic-check"></use></svg></div></div>
+          <div class="join-row"><div><div class="jn">Request to Join</div><div class="jd">Admin approves each request</div></div></div>
+          <div class="join-row"><div><div class="jn">Follow Only</div><div class="jd">Can read Announcements, can't post</div></div></div>
+        </div>
+        <div class="composer-wrap" style="padding-top:0"><div class="send-cta" style="margin:0">Continue</div></div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Create Band — 4b. Join Mode (Public path)</div><div class="note">Follow Only is a new role: read Announcements, no posting rights</div></div>
+    </div>
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="app-header"><span class="back">‹</span><div class="titles"><div class="title">Customize Modules</div><div class="subtitle">Study Band</div></div></div>
+        <div class="body-scroll">
+          <div class="module-row"><div class="mn"><div class="mg"><svg class="ico"><use href="#ic-flag"></use></svg></div>Deadlines</div><div class="toggle on"></div></div>
+          <div class="module-row"><div class="mn"><div class="mg"><svg class="ico"><use href="#ic-doc"></use></svg></div>Notes</div><div class="toggle on"></div></div>
+          <div class="module-row"><div class="mn"><div class="mg"><svg class="ico"><use href="#ic-folder"></use></svg></div>Files</div><div class="toggle on"></div></div>
+          <div class="module-row"><div class="mn"><div class="mg"><svg class="ico"><use href="#ic-sparkle"></use></svg></div>AI Summary</div><div class="toggle on"></div></div>
+        </div>
+        <div class="composer-wrap" style="padding-top:0"><div class="send-cta" style="margin:0">Create Band</div></div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Create Band — 5. Customize Modules</div><div class="note">Defaults pre-selected per template, everything toggleable, final step for both paths</div></div>
+    </div>
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="app-header">
+          <span class="back">‹</span>
+          <div class="titles"><div class="title">Wedding Film Team</div><div class="subtitle">12 members</div></div>
+          <div class="icon">⋯</div>
+        </div>
+        <div class="thread">
+          <div class="bubble in">Priya: uploaded the ceremony raw clips</div>
+          <div class="bubble out">on it, starting the edit now</div>
+        </div>
+        <div class="shortcut-row">
+          <div class="shortcut-chip"><svg class="ico"><use href="#ic-folder"></use></svg> Media Vault</div>
+          <div class="shortcut-chip"><svg class="ico"><use href="#ic-check"></use></svg> Review</div>
+          <div class="shortcut-chip"><svg class="ico"><use href="#ic-pencil"></use></svg> Edit Space</div>
+        </div>
+        <div class="composer-wrap">
+          <div class="composer"><div class="plus">+</div><div class="ph">Message Wedding Film Team</div><div class="wbtn">W</div><div class="send">↑</div></div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Creator Band chat</div><div class="note">Media Vault, Review &amp; Approval, Edit Space</div></div>
+    </div>
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="app-header">
+          <span class="back">‹</span>
+          <div class="titles"><div class="title">AI Team Band</div><div class="subtitle">128 members</div></div>
+          <div class="icon">⋯</div>
+        </div>
+        <div class="scrim-thread">
+          <div class="thread">
+            <div class="bubble in">alright, search is looking solid in staging</div>
+            <div class="bubble out">nice — memory next then</div>
+          </div>
+          <div class="scrim"></div>
+          <div class="sheet">
+            <div class="sheet-handle"></div>
+            <div class="popup-row"><div class="pg"><svg class="ico"><use href="#ic-doc"></use></svg></div><div class="pl">Band Info</div></div>
+            <div class="popup-row"><div class="pg"><svg class="ico"><use href="#ic-group"></use></svg></div><div class="pl">Members</div></div>
+            <div class="popup-row" style="background:#F5F4FE; margin:0 -16px; padding-left:18px; border-radius:10px"><div class="pg" style="background:#171B1A;color:#E8E7FC"><svg class="ico"><use href="#ic-branch"></use></svg></div><div class="pl">Add Section</div></div>
+            <div class="popup-row" style="border-bottom:none"><span style="color:#B04A3E; font-size:12px; font-weight:600; padding-left:36px">Leave Band</span></div>
+          </div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Band menu — Add Section</div><div class="note">Categorized Sub-Bands inside this Band — same members, own history, no separate admin</div></div>
+    </div>
+
+  </div>
+
+  <div class="rack" style="grid-template-columns: repeat(3, 1fr); margin-top: 2.2rem">
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="app-header">
+          <span class="back">‹</span>
+          <div class="titles"><div class="title">GSU AI Project Band</div><div class="subtitle">5 members</div></div>
+          <div class="icon">⋯</div>
+        </div>
+        <div class="thread">
+          <div class="bubble in">Charan: pushed the dataset link to Notes Hub</div>
+          <div class="bubble out">nice, I'll start on the demo script tonight</div>
+        </div>
+        <div class="shortcut-row">
+          <div class="shortcut-chip"><svg class="ico"><use href="#ic-clock"></use></svg> Deadlines</div>
+          <div class="shortcut-chip"><svg class="ico"><use href="#ic-doc"></use></svg> Notes Hub</div>
+          <div class="shortcut-chip"><svg class="ico"><use href="#ic-check"></use></svg> Submission</div>
+        </div>
+        <div class="composer-wrap">
+          <div class="composer"><div class="plus">+</div><div class="ph">Message GSU AI Project Band</div><div class="wbtn">W</div><div class="send">↑</div></div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Student Band chat</div><div class="note">Deadline Board, Notes Hub, Submission Checklist</div></div>
+    </div>
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="app-header"><span class="back">‹</span><div class="titles"><div class="title">Deadline Board</div><div class="subtitle">GSU AI Project Band</div></div></div>
+        <div class="body-scroll">
+          <div class="task-card"><div class="task-check">✓</div><div class="task-body"><div class="task-title">Dataset + preprocessing</div><div class="task-sub">Charan · due Fri</div></div><div class="status-pill progress">In progress</div></div>
+          <div class="task-card"><div class="task-check"></div><div class="task-body"><div class="task-title">Midterm exam — AI Systems</div><div class="task-sub">Everyone · Mon</div></div><div class="status-pill todo">Upcoming</div></div>
+          <div class="task-card"><div class="task-check"></div><div class="task-body"><div class="task-title">Demo video draft</div><div class="task-sub">Akash · due Wed</div></div><div class="status-pill todo">To do</div></div>
+          <div class="task-card"><div class="task-check done">✓</div><div class="task-body"><div class="task-title done">Project proposal</div><div class="task-sub">Submitted last week</div></div><div class="status-pill done">Done</div></div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Deadline Board</div><div class="note">Assignments and exam dates in one view</div></div>
+    </div>
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="app-header"><span class="back">‹</span><div class="titles"><div class="title">Notes Hub</div><div class="subtitle">GSU AI Project Band</div></div></div>
+        <div class="filter-row">
+          <div class="filter-chip on">All</div><div class="filter-chip">Slides</div><div class="filter-chip">PDFs</div><div class="filter-chip">Links</div>
+        </div>
+        <div class="body-scroll">
+          <div class="file-row"><div class="ft"><svg class="ico"><use href="#ic-doc"></use></svg></div><div><div class="fn">Week 3 — Neural Nets.pdf</div><div class="fm">2.4 MB</div></div><div class="chev">›</div></div>
+          <div class="file-row"><div class="ft"><svg class="ico"><use href="#ic-doc"></use></svg></div><div><div class="fn">Lecture Slides — RAG.pptx</div><div class="fm">18 MB</div></div><div class="chev">›</div></div>
+          <div class="file-row"><div class="ft"><svg class="ico"><use href="#ic-folder"></use></svg></div><div><div class="fn">CheXpert dataset link</div><div class="fm">Shared by Charan</div></div><div class="chev">›</div></div>
+          <div class="file-row"><div class="ft"><svg class="ico"><use href="#ic-doc"></use></svg></div><div><div class="fn">Project_Proposal.docx</div><div class="fm">340 KB</div></div><div class="chev">›</div></div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Notes Hub</div><div class="note">Study notes, slides, and links in one place</div></div>
+    </div>
+
+  </div>
+</div>
+
+<div class="group">
+  <div class="group-head"><h2>Discover &amp; Public Bands</h2><span>Handle, followers, and Follow Only — the public-facing layer</span></div>
+  <div class="rack" style="grid-template-columns: repeat(3, 1fr)">
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="app-header"><span class="back">‹</span><div class="titles"><div class="title">Discover</div></div></div>
+        <div class="search-field"><svg class="ico"><use href="#ic-search"></use></svg><span>Search public Bands</span></div>
+        <div class="shortcut-row" style="padding:0 14px 6px">
+          <div class="shortcut-chip" style="background:#171B1A;color:#fff">University</div>
+          <div class="shortcut-chip">Local</div>
+          <div class="shortcut-chip">Professional</div>
+          <div class="shortcut-chip">Channels</div>
+        </div>
+        <div class="body-scroll">
+          <div class="pub-card">
+            <div class="avatar" style="background:#4F46E5;color:#fff"><svg class="ico"><use href="#ic-flag"></use></svg></div>
+            <div style="flex:1;min-width:0">
+              <div class="pn">AI Engineers in Atlanta</div>
+              <div class="pd">@ai-atl · Channel</div>
+              <div class="pmeta"><span>842 followers</span></div>
+            </div>
+            <div class="follow-btn ghost">Follow</div>
+          </div>
+          <div class="pub-card">
+            <div class="avatar" style="background:#171B1A;color:#fff"><svg class="ico"><use href="#ic-group"></use></svg></div>
+            <div style="flex:1;min-width:0">
+              <div class="pn">GSU AI Project</div>
+              <div class="pd">@gsu-ai-project · General</div>
+              <div class="pmeta"><span>5 members</span></div>
+            </div>
+            <div class="follow-btn">Join</div>
+          </div>
+          <div class="pub-card">
+            <div class="avatar" style="background:#35606B;color:#fff"><svg class="ico"><use href="#ic-briefcase"></use></svg></div>
+            <div style="flex:1;min-width:0">
+              <div class="pn">Product Managers ATL</div>
+              <div class="pd">@pm-atl · Channel</div>
+              <div class="pmeta"><span>2.1k followers</span></div>
+            </div>
+            <div class="follow-btn ghost">Follow</div>
+          </div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Discover</div><div class="note">Public Bands only — search + category chips, handle shown under every result</div></div>
+    </div>
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="app-header"><span class="back">‹</span><div class="titles"></div></div>
+        <div class="body-scroll" style="align-items:center; text-align:center; padding-top:18px">
+          <div class="avatar" style="width:64px;height:64px;background:#171B1A;color:#fff"><svg class="ico" style="width:28px;height:28px"><use href="#ic-group"></use></svg></div>
+          <div style="font-size:16px;font-weight:800;margin-top:10px">GSU AI Project</div>
+          <div style="font-size:11px;color:#9AA39F;margin-top:2px">@gsu-ai-project · General</div>
+          <div style="font-size:11.5px;color:#6B7570;margin-top:8px;line-height:1.5">A space for GSU students building AI projects together.</div>
+          <div style="display:flex;gap:16px;margin-top:12px">
+            <div style="text-align:center"><div style="font-size:14px;font-weight:800">5</div><div style="font-size:9.5px;color:#9AA39F">members</div></div>
+          </div>
+          <div class="send-cta" style="margin:16px 0 0;width:100%">Join Open</div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Public Band preview — Open Join</div><div class="note">Handle + member count shown before joining, tap to join instantly</div></div>
+    </div>
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="app-header"><span class="back">‹</span><div class="titles"></div></div>
+        <div class="body-scroll" style="align-items:center; text-align:center; padding-top:18px">
+          <div class="avatar" style="width:64px;height:64px;background:#4F46E5;color:#fff"><svg class="ico" style="width:28px;height:28px"><use href="#ic-flag"></use></svg></div>
+          <div style="font-size:16px;font-weight:800;margin-top:10px">AI Engineers in Atlanta</div>
+          <div style="font-size:11px;color:#9AA39F;margin-top:2px">@ai-atl · Channel</div>
+          <div style="font-size:11.5px;color:#6B7570;margin-top:8px;line-height:1.5">Monthly meetups, job board, and announcements for AI engineers in Atlanta.</div>
+          <div style="display:flex;gap:16px;margin-top:12px">
+            <div style="text-align:center"><div style="font-size:14px;font-weight:800">842</div><div style="font-size:9.5px;color:#9AA39F">followers</div></div>
+          </div>
+          <div class="send-cta" style="margin:16px 0 0;width:100%">Follow</div>
+          <div style="font-size:9.5px;color:#9AA39F;margin-top:8px;display:flex;align-items:center;gap:5px"><svg class="ico" style="width:11px;height:11px"><use href="#ic-check"></use></svg> Read Announcements — posting is admin-only</div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Public Band preview — Follow Only</div><div class="note">Channel join mode: followers can read Announcements but can't post</div></div>
+    </div>
+
+  </div>
+</div>
+
+<div class="group">
+  <div class="group-head"><h2>Original-quality sharing</h2><span>Powered by Whale Tunnel</span></div>
+  <div class="rack">
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="app-header">
+          <span class="back">‹</span>
+          <div class="avatar" style="width:30px;height:30px;background:#35606B"><svg class="ico"><use href="#ic-group"></use></svg></div>
+          <div class="titles"><div class="title">AI Team Band</div></div>
+        </div>
+        <div class="scrim-thread">
+          <div class="thread">
+            <div class="bubble in">can you send the CheXpert dataset over?</div>
+            <div class="bubble out">sending now</div>
+          </div>
+          <div class="scrim"></div>
+          <div class="sheet">
+            <div class="sheet-handle"></div>
+            <div class="sheet-title" style="display:flex; align-items:center; justify-content:space-between">
+              <span>Attach</span>
+              <span style="font-size:8.5px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:#4F46E5">Powered by Whale Tunnel</span>
+            </div>
+            <div class="attach-grid">
+              <div class="attach-opt"><div class="a-icon"><svg class="ico"><use href="#ic-image"></use></svg></div><div class="a-label">Photo</div></div>
+              <div class="attach-opt"><div class="a-icon"><svg class="ico"><use href="#ic-camera"></use></svg></div><div class="a-label">Camera</div></div>
+              <div class="attach-opt"><div class="a-icon"><svg class="ico"><use href="#ic-doc"></use></svg></div><div class="a-label">File</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Attach sheet</div><div class="note">Just Photo/Camera/File — nothing else</div></div>
+    </div>
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="app-header">
+          <span class="back">‹</span>
+          <div class="avatar" style="width:30px;height:30px;background:#35606B"><svg class="ico"><use href="#ic-group"></use></svg></div>
+          <div class="titles"><div class="title">AI Team Band</div></div>
+        </div>
+        <div class="scrim-thread">
+          <div class="thread">
+            <div class="bubble in">can you send the CheXpert dataset over?</div>
+          </div>
+          <div class="scrim"></div>
+          <div class="sheet">
+            <div class="sheet-handle"></div>
+            <div class="file-card">
+              <div class="file-thumb"><svg class="ico"><use href="#ic-folder"></use></svg></div>
+              <div class="file-info"><div class="fname">CheXpert_Dataset.zip</div><div class="fmeta">3.6 GB</div><div class="badge-original">No compression</div></div>
+            </div>
+            <div>
+              <div class="opt-row" style="border-bottom:none"><span class="opt-label">Send Original</span><div class="toggle on"></div></div>
+            </div>
+            <div class="opt-row" style="border-bottom:none; padding-top:0"><span class="opt-label" style="color:#9AA39F; font-weight:600">More options</span><span class="opt-value">Expiry, one-time, password ›</span></div>
+            <div class="send-cta">Send</div>
+          </div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Send preview — over 1 GB</div><div class="note">Expiry/one-time only appear when the file is actually large</div></div>
+    </div>
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="app-header">
+          <span class="back">‹</span>
+          <div class="avatar" style="width:30px;height:30px;background:#35606B"><svg class="ico"><use href="#ic-group"></use></svg></div>
+          <div class="titles"><div class="title">AI Team Band</div></div>
+        </div>
+        <div class="thread">
+          <div class="bubble in">can you send the CheXpert dataset over?</div>
+          <div class="tunnel-bubble">
+            <div class="row">
+              <div class="thumb"><svg class="ico"><use href="#ic-folder"></use></svg></div>
+              <div><div class="name">CheXpert_Dataset.zip</div><div class="meta">3.6 GB · Original quality</div></div>
+            </div>
+            <div class="progress-track"><div class="progress-fill"></div></div>
+            <div class="foot"><span>Uploading · 72%</span><span>Resumable</span></div>
+          </div>
+        </div>
+        <div class="composer-wrap">
+          <div class="composer"><div class="plus">+</div><div class="ph">Message</div><div class="wbtn">W</div><div class="send">↑</div></div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Sent, inline — over 1 GB</div><div class="note">Chunked, resumable, temporary tunnel</div></div>
+    </div>
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="app-header">
+          <span class="back">‹</span>
+          <img class="avatar" style="width:30px;height:30px" src="https://api.dicebear.com/10.x/avataaars/svg?seed=Shareef" alt="Shareef" />
+          <div class="titles"><div class="title">Shareef</div></div>
+        </div>
+        <div class="thread">
+          <div class="bubble in">can you send the itinerary?</div>
+          <div class="tunnel-bubble">
+            <div class="row">
+              <div class="thumb"><svg class="ico"><use href="#ic-doc"></use></svg></div>
+              <div><div class="name">Trip_Itinerary.pdf</div><div class="meta">4.2 MB · Original quality</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="composer-wrap">
+          <div class="composer"><div class="plus">+</div><div class="ph">Message Shareef</div><div class="wbtn">W</div><div class="send">↑</div></div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Sent, inline — under 1 GB</div><div class="note">No progress bar, no expiry — just sends</div></div>
+    </div>
+
+  </div>
+</div>
+
+<div class="group">
+  <div class="group-head"><h2>Scheduling</h2><span>Lives inside the chat, not a main tab</span></div>
+  <div class="rack">
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="app-header">
+          <span class="back">‹</span>
+          <div class="avatar" style="width:30px;height:30px;background:#35606B"><svg class="ico"><use href="#ic-group"></use></svg></div>
+          <div class="titles"><div class="title">AI Team Band</div></div>
+        </div>
+        <div class="scrim-thread">
+          <div class="thread">
+            <div class="bubble out">Please review the file before tomorrow's meeting.</div>
+          </div>
+          <div class="scrim"></div>
+          <div class="sheet">
+            <div class="sheet-handle"></div>
+            <div class="sheet-title">Schedule message</div>
+            <div class="popup-row"><div class="pg"><svg class="ico"><use href="#ic-clock"></use></svg></div><div class="pl">Today, 6:00 PM</div></div>
+            <div class="popup-row" style="background:#F5F4FE; margin:0 -16px; padding-left:18px; border-radius:10px"><div class="pg" style="background:#171B1A;color:#E8E7FC"><svg class="ico"><use href="#ic-clock"></use></svg></div><div class="pl">Tomorrow, 9:00 AM</div></div>
+            <div class="popup-row" style="border-bottom:none"><div class="pg"><svg class="ico"><use href="#ic-calendar"></use></svg></div><div class="pl">Custom date &amp; time</div></div>
+            <div class="send-cta">Confirm</div>
+          </div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Schedule flow</div><div class="note">Long-press send, or ask W directly</div></div>
+    </div>
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="app-header"><span class="back">‹</span><div class="titles"><div class="title">Chat Settings</div></div></div>
+        <div class="body-scroll">
+          <div class="settings-row"><div class="sl">Members</div><span class="chev">›</span></div>
+          <div class="settings-row"><div class="sl">Media and Files</div><span class="chev">›</span></div>
+          <div class="settings-row"><div class="sl">Starred Messages</div><span class="chev">›</span></div>
+          <div class="list-label" style="margin-top:6px">AI Mode</div>
+          <div class="ai-option-row"><span class="ol">On for this chat</span><div class="radio on"></div></div>
+          <div class="ai-option-row"><span class="ol">Allow summaries</span><div class="toggle on"></div></div>
+          <div class="ai-option-row"><span class="ol">Allow AI search</span><div class="toggle on"></div></div>
+          <div class="ai-option-row"><span class="ol">Allow memory</span><div class="toggle"></div></div>
+          <div class="ai-option-row"><span class="ol">Do not remember this chat</span><div class="toggle"></div></div>
+          <div class="settings-row danger" style="margin-top:6px; border-bottom:none"><div class="sl">Clear Chat</div></div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Chat Settings — AI Mode</div><div class="note">Per-chat control, separate from encryption</div></div>
+    </div>
+
+  </div>
+</div>
+
+<div style="height:4rem"></div>

@@ -1,0 +1,956 @@
+<title>Whale — V1 Screens</title>
+<style>
+  :root {
+    --bg: #F2F4F3; --bg-raised: #FFFFFF; --ink: #10202A; --ink-soft: #4B5D66; --ink-faint: #7C8B90;
+    --line: #D6DCDB; --accent: #B9722E; --accent-strong: #96591F; --accent-soft: #F1E4D3;
+    --teal: #35606B; --teal-soft: #E4ECEC;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#0D161C; --bg-raised:#142029; --ink:#E7EEEC; --ink-soft:#9FB0AF; --ink-faint:#6E8186;
+      --line:#263740; --accent:#E0A05B; --accent-strong:#F0B679; --accent-soft:#2C2114; --teal:#6FA3AE; --teal-soft:#17262A; }
+  }
+  :root[data-theme="dark"] { --bg:#0D161C; --bg-raised:#142029; --ink:#E7EEEC; --ink-soft:#9FB0AF; --ink-faint:#6E8186;
+    --line:#263740; --accent:#E0A05B; --accent-strong:#F0B679; --accent-soft:#2C2114; --teal:#6FA3AE; --teal-soft:#17262A; }
+  :root[data-theme="light"] { --bg:#F2F4F3; --bg-raised:#FFFFFF; --ink:#10202A; --ink-soft:#4B5D66; --ink-faint:#7C8B90;
+    --line:#D6DCDB; --accent:#B9722E; --accent-strong:#96591F; --accent-soft:#F1E4D3; --teal:#35606B; --teal-soft:#E4ECEC; }
+
+  * { box-sizing: border-box; }
+  html { background: var(--bg); }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,sans-serif; -webkit-font-smoothing:antialiased; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .display { font-family: ui-serif, "New York", "Iowan Old Style", Georgia, serif; text-wrap: balance; }
+  .eyebrow { font-size:0.72rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--accent-strong); font-weight:600; }
+
+  .page-head { max-width: 1200px; margin: 0 auto; padding: 4rem 1.5rem 1rem; }
+  .page-head h1 { font-size: clamp(2rem, 4vw, 2.7rem); margin: 0.4rem 0 0.6rem; font-weight: 600; }
+  .page-head p { color: var(--ink-soft); max-width: 46rem; margin: 0; font-size: 1.05rem; }
+  .rule-note { max-width: 46rem; margin-top: 0.9rem; padding: 0.7rem 1rem; border-left: 3px solid var(--accent); background: var(--accent-soft); border-radius: 0 6px 6px 0; font-size: 0.85rem; color: var(--accent-strong); font-weight: 600; }
+
+  .group { max-width: 1200px; margin: 0 auto; padding: 2.6rem 1.5rem 0; }
+  .group-head { display: flex; align-items: baseline; gap: 0.7rem; margin-bottom: 1.4rem; border-top: 1px solid var(--line); padding-top: 1.6rem; }
+  .group-head h2 { font-size: 1.1rem; margin: 0; font-weight: 600; }
+  .group-head span { font-size: 0.8rem; color: var(--ink-faint); }
+  .rack { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 2.2rem 1.6rem; }
+  .unit { display: flex; flex-direction: column; align-items: center; gap: 0.85rem; }
+  .caption { text-align: center; }
+  .caption .name { font-size: 0.88rem; font-weight: 600; color: var(--ink); }
+  .caption .note { font-size: 0.76rem; color: var(--ink-faint); margin-top: 0.15rem; }
+
+  /* ---- Device frame (fixed literal colors) ---- */
+  .device { width: 248px; background: #15191B; border-radius: 34px; padding: 8px; box-shadow: 0 1px 1px rgba(0,0,0,0.2), 0 20px 40px rgba(10,15,17,0.28); }
+  .screen { position: relative; width: 100%; height: 522px; background: #FAFAF8; border-radius: 27px; overflow: hidden; display: flex; flex-direction: column; color: #171B1A; font-family: -apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,sans-serif; }
+  .island { position: absolute; top: 8px; left: 50%; transform: translateX(-50%); width: 66px; height: 18px; background: #15191B; border-radius: 10px; z-index: 6; }
+  .home-bar { position: absolute; bottom: 6px; left: 50%; transform: translateX(-50%); width: 100px; height: 4px; background: #171B1A; opacity: 0.22; border-radius: 3px; z-index: 6; }
+  .status { height: 34px; flex-shrink: 0; display: flex; align-items: center; justify-content: space-between; padding: 0 18px; font-size: 11px; font-weight: 600; color: #171B1A; }
+  .status .dots { display: flex; gap: 3px; align-items: center; }
+  .status .bar { width: 3px; background: #171B1A; border-radius: 1px; }
+
+  .app-header { flex-shrink: 0; padding: 6px 16px 10px; border-bottom: 1px solid #ECEDE9; display: flex; align-items: center; gap: 10px; }
+  .app-header .back { font-size: 17px; color: #6B7570; width: 14px; }
+  .app-header .titles { flex: 1; min-width: 0; }
+  .app-header .title { font-size: 15px; font-weight: 700; letter-spacing: -0.01em; }
+  .app-header .title.serif { font-family: ui-serif, "New York", Georgia, serif; font-size: 19px; font-weight: 600; }
+  .app-header .subtitle { font-size: 11px; color: #8A9490; margin-top: 1px; }
+  .header-icons { display: flex; gap: 8px; flex-shrink: 0; }
+  .icon { width: 22px; height: 22px; border-radius: 50%; background: #F1F2EE; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #6B7570; flex-shrink: 0; }
+  .icon.accent { background: #171B1A; color: #F1E4D3; }
+  .ico { width: 1em; height: 1em; display: block; }
+
+  /* Big editorial header for the four main tabs */
+  .tab-header { flex-shrink: 0; padding: 16px 16px 6px; }
+  .tab-header .row1 { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+  .tab-header .tt { font-family: ui-serif, "New York", Georgia, serif; font-size: 26px; font-weight: 600; letter-spacing: -0.01em; line-height: 1.1; }
+  .tab-header .ts { font-size: 11px; color: #8A9490; margin-top: 3px; }
+  .tab-header .ticons { display: flex; gap: 8px; padding-top: 5px; flex-shrink: 0; }
+
+  .body-scroll { flex: 1; overflow: hidden; padding: 10px 14px 0; display: flex; flex-direction: column; gap: 10px; }
+
+  .avatar { width: 44px; height: 44px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: #fff; }
+  .avatar-wrap { position: relative; flex-shrink: 0; }
+  .avatar-wrap .badge { position: absolute; bottom: -3px; right: -3px; width: 16px; height: 16px; border-radius: 50%; background: #171B1A; border: 2px solid #FAFAF8; display: flex; align-items: center; justify-content: center; font-size: 7px; color: #F1E4D3; }
+
+  /* Search field */
+  .search-field { margin: 2px 14px 6px; background: #F1F2EE; border-radius: 14px; padding: 10px 12px; display: flex; align-items: center; gap: 7px; font-size: 12px; color: #9AA39F; font-weight: 500; }
+
+  /* Pinned row */
+  .pinned-row { display: flex; gap: 13px; padding: 2px 14px 10px; overflow: hidden; }
+  .pinned-chip { display: flex; flex-direction: column; align-items: center; gap: 4px; width: 46px; flex-shrink: 0; }
+  .pinned-ring { width: 48px; height: 48px; border-radius: 50%; padding: 2px; border: 2px solid #B9722E; display: flex; align-items: center; justify-content: center; }
+  .pinned-ring .avatar { width: 100%; height: 100%; font-size: 12px; }
+  .pinned-label { font-size: 9px; color: #6B7570; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 46px; }
+  .list-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #9AA39F; padding: 2px 0 0; }
+
+  /* Chat list */
+  .chat-row { display: flex; align-items: center; gap: 11px; padding: 7px 0; }
+  .chat-row .meta { flex: 1; min-width: 0; }
+  .chat-row .top-line { display: flex; justify-content: space-between; align-items: baseline; }
+  .chat-row .who { font-size: 14.5px; font-weight: 700; letter-spacing: -0.01em; }
+  .chat-row .time { font-size: 10.5px; color: #9AA39F; flex-shrink: 0; }
+  .chat-row .preview { font-size: 12px; color: #7C8580; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .chat-row .dot { width: 8px; height: 8px; border-radius: 50%; background: #B9722E; flex-shrink: 0; margin-left: 6px; }
+  .chat-list-divider { height: 1px; background: #EFF0EC; margin-left: 51px; }
+
+  /* Bottom tab bar */
+  .tabbar2 { flex-shrink: 0; height: 58px; border-top: 1px solid #ECEDE9; display: flex; align-items: center; justify-content: space-around; padding-bottom: 4px; }
+  .tabbar2 .t { display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 9px; color: #AEB6B2; font-weight: 600; }
+  .tabbar2 .t.active { color: #171B1A; }
+  .tabbar2 .t .g { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #AEB6B2; }
+  .tabbar2 .t.active .g { background: #171B1A; color: #F1E4D3; }
+
+  /* Bubbles */
+  .thread { flex: 1; overflow: hidden; padding: 12px 14px 6px; display: flex; flex-direction: column; gap: 7px; justify-content: flex-end; }
+  .bubble { max-width: 74%; padding: 8px 12px; border-radius: 16px; font-size: 13px; line-height: 1.4; }
+  .bubble.in { align-self: flex-start; background: #F0F1EE; color: #171B1A; border-bottom-left-radius: 5px; }
+  .bubble.out { align-self: flex-end; background: #B9722E; color: #FFF8EF; border-bottom-right-radius: 5px; }
+
+  .composer-wrap { flex-shrink: 0; padding: 8px 12px 14px; }
+  .composer { display: flex; align-items: center; gap: 6px; background: #F1F2EE; border-radius: 22px; padding: 6px 6px 6px 12px; }
+  .composer .plus { width: 24px; height: 24px; border-radius: 50%; background: #E7E8E4; color: #4B5652; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+  .composer .ph { flex: 1; font-size: 12px; color: #9AA39F; }
+  .composer .wbtn { width: 24px; height: 24px; border-radius: 50%; background: #171B1A; color: #F1E4D3; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; flex-shrink: 0; }
+  .composer .send { width: 24px; height: 24px; border-radius: 50%; background: #B9722E; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 11px; flex-shrink: 0; }
+
+  /* Rewrite / summary / generic AI cards */
+  .ai-chips { display: flex; gap: 6px; padding: 0 14px 8px; flex-wrap: wrap; }
+  .ai-chip { font-size: 10.5px; padding: 5px 10px; border-radius: 12px; background: #F1F2EE; color: #4B5652; font-weight: 600; }
+  .ai-chip.on { background: #171B1A; color: #F1E4D3; }
+  .rewrite-card { margin: 0 14px 10px; background: #FBF6EF; border: 1px solid #E9D9BE; border-radius: 12px; padding: 10px 12px; }
+  .rewrite-card .label { font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.06em; color: #96591F; font-weight: 700; margin-bottom: 4px; }
+  .rewrite-card .txt { font-size: 12.5px; line-height: 1.4; color: #171B1A; }
+  .rewrite-actions { display: flex; gap: 8px; margin-top: 9px; }
+  .btn-mini { flex: 1; text-align: center; font-size: 11px; font-weight: 700; padding: 7px 0; border-radius: 10px; }
+  .btn-mini.primary { background: #171B1A; color: #F1E4D3; }
+  .btn-mini.ghost { background: transparent; color: #6B7570; border: 1px solid #DCDFDA; }
+
+  .summary-card { margin: 0 14px 4px; background: #FBF6EF; border: 1px solid #E9D9BE; border-radius: 16px; padding: 10px 12px; position: relative; }
+  .summary-card .head { display: flex; align-items: center; gap: 6px; font-size: 10px; font-weight: 700; color: #96591F; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
+  .summary-card .close { position: absolute; top: 8px; right: 10px; font-size: 12px; color: #C7B08A; }
+  .summary-list { margin: 0; padding-left: 14px; font-size: 11.5px; line-height: 1.55; color: #4B4030; }
+  .summary-list li { margin-bottom: 2px; }
+
+  /* Category picker (Create Band) */
+  .cat-row { display: flex; align-items: center; gap: 11px; background: #fff; border: 1.5px solid #ECEDE9; border-radius: 16px; padding: 9px 12px; }
+  .cat-row.on { border-color: #E9D9BE; background: #FBF6EF; }
+  .cat-row .cg { width: 32px; height: 32px; border-radius: 10px; background: #F1F2EE; color: #4B5652; display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; }
+  .cat-row.on .cg { background: #171B1A; color: #F1E4D3; }
+  .cat-row .cn { font-size: 12.5px; font-weight: 700; }
+  .cat-row .cd { font-size: 9.5px; color: #9AA39F; margin-top: 1px; }
+  .cat-row .cchk { margin-left: auto; color: #96591F; flex-shrink: 0; }
+
+  /* Band shortcut chips */
+  .shortcut-row { display: flex; gap: 7px; padding: 8px 14px 2px; }
+  .shortcut-chip { display: flex; align-items: center; gap: 5px; font-size: 10.5px; font-weight: 600; color: #4B5652; background: #F1F2EE; padding: 6px 11px; border-radius: 12px; }
+
+  /* Task cards */
+  .task-card { background: #fff; border: 1px solid #ECEDE9; border-radius: 16px; padding: 10px 12px; display: flex; align-items: center; gap: 10px; }
+  .task-check { width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid #C7CDC9; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #fff; }
+  .task-check.done { background: #35606B; border-color: #35606B; }
+  .task-body { flex: 1; min-width: 0; }
+  .task-title { font-size: 12.5px; font-weight: 600; }
+  .task-title.done { text-decoration: line-through; color: #A8B0AC; }
+  .task-sub { font-size: 10.5px; color: #9AA39F; margin-top: 2px; }
+  .status-pill { font-size: 9px; font-weight: 700; padding: 3px 8px; border-radius: 8px; flex-shrink: 0; }
+  .status-pill.progress { background: #F1E4D3; color: #96591F; }
+  .status-pill.todo { background: #EEF0EC; color: #7C8580; }
+  .status-pill.done { background: #E4ECEC; color: #35606B; }
+
+  /* File rows (Smart File View) */
+  .file-row { display: flex; align-items: center; gap: 10px; background: #fff; border: 1px solid #ECEDE9; border-radius: 16px; padding: 9px 11px; }
+  .file-row .ft { width: 34px; height: 34px; border-radius: 9px; background: #171B1A; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
+  .file-row .fn { font-size: 12px; font-weight: 700; }
+  .file-row .fm { font-size: 10px; color: #9AA39F; margin-top: 1px; }
+  .file-row .chev { margin-left: auto; color: #C7CDC9; font-size: 13px; }
+  .filter-row { display: flex; gap: 6px; padding: 0 14px 2px; overflow: hidden; }
+  .filter-chip { font-size: 10px; font-weight: 600; padding: 5px 10px; border-radius: 11px; background: #F1F2EE; color: #6B7570; white-space: nowrap; }
+  .filter-chip.on { background: #171B1A; color: #fff; }
+
+  /* Attach sheet + bottom-sheet-over-thread */
+  .scrim-thread { position: relative; flex: 1; overflow: hidden; }
+  .scrim-thread .thread { filter: blur(1.5px); opacity: 0.5; }
+  .scrim { position: absolute; inset: 0; background: rgba(15,20,18,0.28); }
+  .sheet { position: absolute; left: 0; right: 0; bottom: 0; background: #fff; border-radius: 26px 26px 0 0; padding: 10px 16px 18px; box-shadow: 0 -8px 24px rgba(0,0,0,0.12); }
+  .sheet-handle { width: 34px; height: 4px; background: #E2E4E0; border-radius: 3px; margin: 0 auto 12px; }
+  .sheet-title { font-size: 12px; font-weight: 700; color: #6B7570; margin-bottom: 10px; }
+  .attach-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .attach-opt { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .attach-opt .a-icon { width: 46px; height: 46px; border-radius: 13px; background: #F1F2EE; color: #4B5652; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+  .attach-opt .a-label { font-size: 10px; font-weight: 600; color: #4B5652; text-align: center; }
+
+  /* File send preview + in-thread card */
+  .file-card { background: #fff; border: 1px solid #ECEDE9; border-radius: 18px; padding: 12px; display: flex; gap: 12px; align-items: center; }
+  .file-thumb { width: 46px; height: 46px; border-radius: 10px; background: #171B1A; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 17px; flex-shrink: 0; }
+  .file-info .fname { font-size: 12.5px; font-weight: 700; line-height: 1.3; }
+  .file-info .fmeta { font-size: 10.5px; color: #9AA39F; margin-top: 3px; }
+  .badge-original { display: inline-block; margin-top: 5px; font-size: 9px; font-weight: 700; padding: 2px 7px; border-radius: 7px; background: #E4ECEC; color: #35606B; }
+  .opt-row { display: flex; align-items: center; justify-content: space-between; padding: 9px 2px; border-bottom: 1px solid #EFF0EC; }
+  .opt-row .opt-label { font-size: 12px; font-weight: 600; }
+  .opt-row .opt-value { font-size: 11px; color: #9AA39F; }
+  .toggle { width: 32px; height: 18px; border-radius: 10px; background: #E7E8E4; position: relative; }
+  .toggle.on { background: #B9722E; }
+  .toggle::after { content: ""; position: absolute; top: 2px; left: 2px; width: 14px; height: 14px; border-radius: 50%; background: #fff; }
+  .toggle.on::after { left: 16px; }
+  .send-cta { text-align: center; font-size: 13px; font-weight: 700; padding: 11px 0; border-radius: 13px; background: #171B1A; color: #fff; margin-top: 10px; }
+
+  .tunnel-bubble { align-self: flex-end; max-width: 78%; background: #fff; border: 1px solid #E9D9BE; border-radius: 16px; border-bottom-right-radius: 5px; padding: 10px; }
+  .tunnel-bubble .row { display: flex; gap: 9px; align-items: center; }
+  .tunnel-bubble .thumb { width: 38px; height: 38px; border-radius: 9px; background: #171B1A; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+  .tunnel-bubble .name { font-size: 11.5px; font-weight: 700; }
+  .tunnel-bubble .meta { font-size: 9.5px; color: #9AA39F; margin-top: 2px; }
+  .tunnel-bubble .progress-track { height: 4px; background: #EFEAE0; border-radius: 2px; margin-top: 8px; overflow: hidden; }
+  .tunnel-bubble .progress-fill { height: 100%; width: 72%; background: #B9722E; border-radius: 2px; }
+  .tunnel-bubble .foot { display: flex; justify-content: space-between; font-size: 9px; color: #96591F; font-weight: 700; margin-top: 5px; }
+
+  /* Popup action rows (W:AI popup) */
+  .popup-row { display: flex; align-items: center; gap: 10px; padding: 9px 2px; border-bottom: 1px solid #F1F2EE; }
+  .popup-row .pg { width: 26px; height: 26px; border-radius: 8px; background: #F1F2EE; color: #4B5652; display: flex; align-items: center; justify-content: center; font-size: 12px; flex-shrink: 0; }
+  .popup-row .pl { font-size: 12px; font-weight: 600; }
+  .prompt-field { display: flex; align-items: center; gap: 8px; background: #F1F2EE; border-radius: 13px; padding: 9px 12px; margin-bottom: 10px; font-size: 11.5px; color: #9AA39F; }
+
+  /* W main screen */
+  .w-hero { margin: 4px 14px 2px; background: radial-gradient(120% 140% at 88% -25%, rgba(224,160,91,0.4), transparent 55%), #171B1A; border-radius: 20px; padding: 14px; }
+  .w-hero .hg { font-size: 9.5px; color: #A9B3AE; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
+  .w-hero .hi { display: flex; align-items: center; gap: 8px; background: #232928; border-radius: 12px; padding: 10px 12px; margin-top: 9px; }
+  .w-hero .hi .ph { color: #7C8580; font-size: 12px; }
+  .w-sect-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #9AA39F; padding: 4px 0 0; }
+  .w-row { display: flex; align-items: center; gap: 10px; background: #fff; border: 1px solid #ECEDE9; border-radius: 16px; padding: 9px 11px; }
+  .w-row .wg { width: 28px; height: 28px; border-radius: 9px; background: #F1E4D3; color: #96591F; display: flex; align-items: center; justify-content: center; font-size: 12px; flex-shrink: 0; }
+  .w-row .wt { font-size: 12px; font-weight: 700; }
+  .w-row .ws { font-size: 10px; color: #9AA39F; margin-top: 1px; }
+
+  /* Actions screen */
+  .action-card { display: flex; align-items: center; gap: 11px; background: #fff; border: 1px solid #ECEDE9; border-radius: 16px; padding: 10px 12px; }
+  .action-card .ac-icon { width: 30px; height: 30px; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; color: #fff; }
+  .action-card .act { font-size: 12px; font-weight: 700; }
+  .action-card .acs { font-size: 10px; color: #9AA39F; margin-top: 1px; }
+
+  /* Settings rows */
+  .settings-row { display: flex; align-items: center; gap: 10px; padding: 10px 2px; border-bottom: 1px solid #EFF0EC; }
+  .settings-row .sl { font-size: 12.5px; font-weight: 600; flex: 1; }
+  .settings-row .sv { font-size: 11px; color: #9AA39F; }
+  .settings-row .chev { color: #C7CDC9; font-size: 13px; }
+  .settings-row.danger .sl { color: #B04A3E; }
+  .ai-option-row { display: flex; align-items: center; justify-content: space-between; padding: 8px 2px; }
+  .ai-option-row .ol { font-size: 11.5px; font-weight: 600; }
+  .radio { width: 16px; height: 16px; border-radius: 50%; border: 1.5px solid #C7CDC9; display: flex; align-items: center; justify-content: center; }
+  .radio.on { border-color: #171B1A; }
+  .radio.on::after { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #171B1A; }
+
+  /* Profile header */
+  .profile-head { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 14px 0 8px; }
+  .profile-head .pav { width: 64px; height: 64px; border-radius: 50%; background: #171B1A; color: #F1E4D3; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 700; }
+  .profile-head .pname { font-size: 14px; font-weight: 700; }
+  .profile-head .puser { font-size: 11px; color: #9AA39F; }
+  .qr-btn { display: flex; align-items: center; gap: 5px; font-size: 10px; font-weight: 700; color: #96591F; background: #F1E4D3; padding: 5px 10px; border-radius: 10px; margin-top: 2px; }
+
+  /* Search results */
+  .search-bar { margin: 8px 14px 4px; background: #F1F2EE; border-radius: 14px; padding: 10px 12px; font-size: 12px; color: #171B1A; font-weight: 500; }
+  .search-section-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #9AA39F; padding: 6px 14px 2px; }
+  .result-card { margin: 0 14px; padding: 9px 0; border-bottom: 1px solid #EFF0EC; }
+  .result-top { display: flex; justify-content: space-between; font-size: 10.5px; color: #9AA39F; margin-bottom: 3px; }
+  .result-snippet { font-size: 12px; line-height: 1.4; color: #171B1A; }
+  .result-snippet mark { background: #F1E4D3; color: #96591F; border-radius: 3px; padding: 0 1px; }
+
+  /* Onboarding */
+  .onboard { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 0 26px; gap: 22px; }
+  .wordmark { font-family: ui-serif, "New York", Georgia, serif; font-size: 21px; font-weight: 600; text-align: center; letter-spacing: -0.01em; }
+  .field-label { font-size: 11px; font-weight: 700; color: #6B7570; margin-bottom: 7px; }
+  .field { border: 1.5px solid #171B1A; border-radius: 12px; padding: 12px 14px; font-size: 14px; font-weight: 600; }
+  .field-help { font-size: 10.5px; color: #9AA39F; margin-top: 7px; line-height: 1.4; }
+  .cta { background: #171B1A; color: #fff; text-align: center; font-size: 13.5px; font-weight: 700; padding: 13px 0; border-radius: 13px; }
+  .onboard-foot { text-align: center; font-size: 11px; color: #9AA39F; }
+
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<svg style="display:none" aria-hidden="true">
+  <symbol id="ic-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H9l-4 3v-3H6a2 2 0 0 1-2-2V6Z"/></symbol>
+  <symbol id="ic-sparkle" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2L14 10L22 12L14 14L12 22L10 14L2 12L10 10Z"/></symbol>
+  <symbol id="ic-actions" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="4"/><path d="M8.5 12.5l2.3 2.3L16 9.5"/></symbol>
+  <symbol id="ic-person" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.3"/><path d="M5.5 19c.5-4 3-6 6.5-6s6 2 6.5 6"/></symbol>
+  <symbol id="ic-pencil" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l.8-3.8L15.6 5.4a1 1 0 0 1 1.4 0l1.6 1.6a1 1 0 0 1 0 1.4L7.8 19.2 4 20Z"/><path d="M14 7l3 3"/></symbol>
+  <symbol id="ic-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.4-4.4"/></symbol>
+  <symbol id="ic-gear" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="7.6" stroke-dasharray="2.1 2.4"/></symbol>
+  <symbol id="ic-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M12 7.5v4.7l3.2 2"/></symbol>
+  <symbol id="ic-folder" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7.2A1.2 1.2 0 0 1 5.2 6h4.4l1.8 2h7.4A1.2 1.2 0 0 1 20 9.2v8.6A1.2 1.2 0 0 1 18.8 19H5.2A1.2 1.2 0 0 1 4 17.8Z"/></symbol>
+  <symbol id="ic-flag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v18"/><path d="M6 4.5h10.5l-2.7 3.5 2.7 3.5H6"/></symbol>
+  <symbol id="ic-alert" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5l8.5 15H3.5Z"/><path d="M12 10v4"/><circle cx="12" cy="16.7" r="0.9" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="ic-image" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="4.5" width="17" height="15" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="M20 15l-4.8-4.8-4 4-2.7-2.7-5 5"/></symbol>
+  <symbol id="ic-camera" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8.2A1.8 1.8 0 0 1 5.8 6.4h1.9l1-1.7h6.6l1 1.7h1.9A1.8 1.8 0 0 1 20 8.2v9A1.8 1.8 0 0 1 18.2 19H5.8A1.8 1.8 0 0 1 4 17.2Z"/><circle cx="12" cy="12.6" r="3.4"/></symbol>
+  <symbol id="ic-doc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3.2h6.5l4.3 4.3V19.8a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4.2a1 1 0 0 1 1-1Z"/><path d="M13.5 3.2v4.3h4.3"/></symbol>
+  <symbol id="ic-qr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="4" y="4" width="6" height="6"/><rect x="14" y="4" width="6" height="6"/><rect x="4" y="14" width="6" height="6"/><rect x="15.2" y="15.2" width="1.6" height="1.6" fill="currentColor" stroke="none"/><rect x="18.4" y="15.2" width="1.6" height="1.6" fill="currentColor" stroke="none"/><rect x="15.2" y="18.4" width="1.6" height="1.6" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="ic-group" viewBox="0 0 24 24" fill="currentColor" stroke="none"><circle cx="8.5" cy="10" r="4"/><circle cx="15" cy="10" r="4" opacity="0.75"/></symbol>
+  <symbol id="ic-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5l5 5L19.5 7"/></symbol>
+  <symbol id="ic-play" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M7 4.5v15l13-7.5Z"/></symbol>
+  <symbol id="ic-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5.5" width="16" height="14.5" rx="2"/><path d="M4 10h16"/><path d="M8 3.5v3.5M16 3.5v3.5"/></symbol>
+  <symbol id="ic-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11L12 4l8 7"/><path d="M6 10v9h12v-9"/></symbol>
+  <symbol id="ic-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h6v18H6a2 2 0 0 1-2-2Z"/><path d="M12 3h6a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-6"/></symbol>
+  <symbol id="ic-briefcase" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7.5" width="18" height="12" rx="2"/><path d="M8.5 7.5V6a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v1.5"/></symbol>
+  <symbol id="ic-branch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="5" r="2"/><circle cx="6" cy="19" r="2"/><circle cx="17" cy="13" r="2"/><path d="M6 7v10"/><path d="M6 12a5 5 0 0 0 5 1.5l4-1.5"/></symbol>
+</svg>
+
+<div class="page-head">
+  <p class="eyebrow">NextGen AI Messaging</p>
+  <h1 class="display">Whale — chat without limits.</h1>
+  <p>Where conversations become organized, memories stay original, files move without limits, and AI helps every user chat smarter.</p>
+</div>
+
+<div class="group" style="padding-top:0.6rem">
+  <div class="group-head" style="border-top:none; padding-top:0"><h2>Onboarding &amp; Profile</h2><span>The two bookends — the screen that tested well, and where identity lives</span></div>
+  <div class="rack">
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="onboard">
+          <div class="wordmark">Whale</div>
+          <div>
+            <div class="field-label">CHOOSE A USERNAME</div>
+            <div class="field">@akashg</div>
+            <div class="field-help">This is how people find you on Whale — no phone number required.</div>
+          </div>
+          <div class="cta">Continue</div>
+          <div class="onboard-foot">Already have an account? Log in</div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Onboarding</div><div class="note">Kept as-is</div></div>
+    </div>
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="tab-header"><div class="row1"><div class="tt">Profile</div></div></div>
+        <div class="profile-head">
+          <div class="pav">AG</div>
+          <div class="pname">Akash Gogineni</div>
+          <div class="puser">@akashg</div>
+          <div class="qr-btn"><svg class="ico"><use href="#ic-qr"></use></svg><span>Show QR code</span></div>
+        </div>
+        <div class="body-scroll" style="padding-top:2px">
+          <div class="settings-row"><div class="sl">Privacy Settings</div><span class="chev">›</span></div>
+          <div class="settings-row"><div class="sl">W:AI Settings</div><span class="chev">›</span></div>
+          <div class="settings-row"><div class="sl">Storage and Data</div><span class="sv">2.1 GB used</span><span class="chev">›</span></div>
+          <div class="settings-row"><div class="sl">Notifications</div><span class="chev">›</span></div>
+          <div class="settings-row" style="border-bottom:none"><div class="sl">Subscription Plan</div><span class="sv">Free</span><span class="chev">›</span></div>
+        </div>
+        <div class="tabbar2">
+          <div class="t"><div class="g"><svg class="ico"><use href="#ic-chat"></use></svg></div>Chats</div>
+          <div class="t"><div class="g"><svg class="ico"><use href="#ic-sparkle"></use></svg></div>W</div>
+          <div class="t"><div class="g"><svg class="ico"><use href="#ic-actions"></use></svg></div>Actions</div>
+          <div class="t active"><div class="g"><svg class="ico"><use href="#ic-person"></use></svg></div>Profile</div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Profile</div><div class="note">No phone number field, by design</div></div>
+    </div>
+
+  </div>
+</div>
+
+<div class="group">
+  <div class="group-head"><h2>Chats &amp; global search</h2><span>Home tab, pinned row, search-first</span></div>
+  <div class="rack">
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="tab-header">
+          <div class="row1"><div class="tt">Chats</div><div class="ticons"><div class="icon"><svg class="ico"><use href="#ic-pencil"></use></svg></div></div></div>
+        </div>
+        <div class="search-field"><svg class="ico"><use href="#ic-search"></use></svg><span>Search chats, files, tasks, decisions</span></div>
+        <div class="pinned-row">
+          <div class="pinned-chip"><div class="pinned-ring"><div class="avatar" style="background:#35606B">AI</div></div><div class="pinned-label">AI Team</div></div>
+          <div class="pinned-chip"><div class="pinned-ring"><div class="avatar" style="background:#B9722E">FB</div></div><div class="pinned-label">Family</div></div>
+          <div class="pinned-chip"><div class="pinned-ring"><div class="avatar" style="background:#7C8580">S</div></div><div class="pinned-label">Shareef</div></div>
+        </div>
+        <div class="body-scroll" style="padding-top:0">
+          <div class="list-label">Recent</div>
+          <div class="chat-row">
+            <div class="avatar-wrap"><div class="avatar" style="background:#35606B">AI</div><div class="badge"><svg class="ico" style="width:.7em;height:.7em"><use href="#ic-group"></use></svg></div></div>
+            <div class="meta"><div class="top-line"><span class="who">AI Team Band</span><span class="time">2m</span></div><div class="preview">Akash: CheXpert_Dataset.zip · 3.6 GB</div></div>
+            <div class="dot"></div>
+          </div>
+          <div class="chat-list-divider"></div>
+          <div class="chat-row">
+            <div class="avatar-wrap"><div class="avatar" style="background:#B9722E">FB</div><div class="badge"><svg class="ico" style="width:.7em;height:.7em"><use href="#ic-group"></use></svg></div></div>
+            <div class="meta"><div class="top-line"><span class="who">Family Band</span><span class="time">18m</span></div><div class="preview">Mom: don't forget dinner Sunday 6pm</div></div>
+          </div>
+          <div class="chat-list-divider"></div>
+          <div class="chat-row">
+            <div class="avatar" style="background:#7C8580">S</div>
+            <div class="meta"><div class="top-line"><span class="who">Shareef</span><span class="time">1h</span></div><div class="preview">sent a voice note · 0:42</div></div>
+          </div>
+          <div class="chat-list-divider"></div>
+          <div class="chat-row">
+            <div class="avatar" style="background:#9AA39F">C</div>
+            <div class="meta"><div class="top-line"><span class="who">Charan</span><span class="time">3h</span></div><div class="preview">weekend trip pics are on the way</div></div>
+            <div class="dot"></div>
+          </div>
+        </div>
+        <div class="tabbar2">
+          <div class="t active"><div class="g"><svg class="ico"><use href="#ic-chat"></use></svg></div>Chats</div>
+          <div class="t"><div class="g"><svg class="ico"><use href="#ic-sparkle"></use></svg></div>W</div>
+          <div class="t"><div class="g"><svg class="ico"><use href="#ic-actions"></use></svg></div>Actions</div>
+          <div class="t"><div class="g"><svg class="ico"><use href="#ic-person"></use></svg></div>Profile</div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Chats — home</div><div class="note">Pinned row + real search bar, one list</div></div>
+    </div>
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="app-header"><span class="back">‹</span><div class="titles"><div class="title">Search</div></div></div>
+        <div class="search-bar">"what did Shareef say about biryani"</div>
+        <div class="search-section-label">Messages</div>
+        <div class="result-card">
+          <div class="result-top"><span>Shareef · Direct message</span><span>3d ago</span></div>
+          <div class="result-snippet">…that <mark>biryani</mark> place near campus is open till midnight, we should…</div>
+        </div>
+        <div class="search-section-label">Bands</div>
+        <div class="result-card">
+          <div class="result-top"><span>Creator Project Band</span><span>1w ago</span></div>
+          <div class="result-snippet">Shareef: grabbing <mark>biryani</mark> before the shoot, want anything?</div>
+        </div>
+        <div class="search-section-label">Files</div>
+        <div class="result-card" style="border-bottom:none">
+          <div class="result-top"><span>Shared by Charan</span><span>3d ago</span></div>
+          <div class="result-snippet">📦 Weekend_Trip_Photos.zip</div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Search results</div><div class="note">Meaning-based, scoped to AI-allowed chats</div></div>
+    </div>
+
+  </div>
+</div>
+
+<div class="group">
+  <div class="group-head"><h2>Personal chat &amp; W:AI popup</h2><span>AI is one tap away, never a separate app</span></div>
+  <div class="rack">
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="app-header">
+          <span class="back">‹</span>
+          <div class="avatar" style="width:30px;height:30px;font-size:11px;background:#7C8580">S</div>
+          <div class="titles"><div class="title">Shareef</div><div class="subtitle">Active now</div></div>
+        </div>
+        <div class="thread">
+          <div class="bubble in">Hey are we still on for the biryani place at 8?</div>
+          <div class="bubble out">yeah works for me, see you there</div>
+          <div class="bubble in">Perfect 🙌</div>
+        </div>
+        <div class="composer-wrap">
+          <div class="composer"><div class="plus">+</div><div class="ph">Message Shareef</div><div class="wbtn">W</div><div class="send">↑</div></div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Personal chat</div><div class="note">"W" sits next to send, always visible</div></div>
+    </div>
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="app-header">
+          <span class="back">‹</span>
+          <div class="avatar" style="width:30px;height:30px;font-size:11px;background:#7C8580">S</div>
+          <div class="titles"><div class="title">Shareef</div><div class="subtitle">Active now</div></div>
+        </div>
+        <div class="scrim-thread">
+          <div class="thread">
+            <div class="bubble in">Hey are we still on for the biryani place at 8?</div>
+            <div class="bubble out">yeah works for me, see you there</div>
+          </div>
+          <div class="scrim"></div>
+          <div class="sheet">
+            <div class="sheet-handle"></div>
+            <div class="prompt-field"><span>W</span><span>Ask W or choose an action</span></div>
+            <div class="popup-row"><div class="pg"><svg class="ico"><use href="#ic-pencil"></use></svg></div><div class="pl">Rewrite my message</div></div>
+            <div class="popup-row"><div class="pg"><svg class="ico"><use href="#ic-doc"></use></svg></div><div class="pl">Summarize this chat</div></div>
+            <div class="popup-row"><div class="pg"><svg class="ico"><use href="#ic-search"></use></svg></div><div class="pl">Find a message</div></div>
+            <div class="popup-row"><div class="pg"><svg class="ico"><use href="#ic-check"></use></svg></div><div class="pl">Create action items</div></div>
+            <div class="popup-row" style="border-bottom:none"><div class="pg"><svg class="ico"><use href="#ic-clock"></use></svg></div><div class="pl">Schedule this message</div></div>
+          </div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">W:AI popup</div><div class="note">One assistant, every action, in context</div></div>
+    </div>
+
+  </div>
+</div>
+
+<div class="group">
+  <div class="group-head"><h2>W &amp; Actions</h2><span>The other two tabs</span></div>
+  <div class="rack">
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="tab-header">
+          <div class="row1"><div><div class="tt">W</div><div class="ts">Your personal AI</div></div><div class="ticons"><div class="icon"><svg class="ico"><use href="#ic-gear"></use></svg></div></div></div>
+        </div>
+        <div class="w-hero">
+          <div class="hg">ASK W ANYTHING</div>
+          <div class="hi"><svg class="ico" style="width:14px;height:14px;flex-shrink:0"><use href="#ic-sparkle"></use></svg><span class="ph">What did I miss today?</span></div>
+        </div>
+        <div class="ai-chips" style="padding-top:6px">
+          <div class="ai-chip">Pending tasks?</div>
+          <div class="ai-chip">Summarize Family Band</div>
+        </div>
+        <div class="body-scroll" style="padding-top:2px">
+          <div class="w-sect-label">Unread summaries</div>
+          <div class="w-row"><div class="wg"><svg class="ico"><use href="#ic-sparkle"></use></svg></div><div><div class="wt">AI Team Band</div><div class="ws">3 updates since you left</div></div></div>
+          <div class="w-sect-label">Pending tasks</div>
+          <div class="w-row"><div class="wg"><svg class="ico"><use href="#ic-check"></use></svg></div><div><div class="wt">Review privacy labels</div><div class="ws">Due Monday</div></div></div>
+        </div>
+        <div class="tabbar2">
+          <div class="t"><div class="g"><svg class="ico"><use href="#ic-chat"></use></svg></div>Chats</div>
+          <div class="t active"><div class="g"><svg class="ico"><use href="#ic-sparkle"></use></svg></div>W</div>
+          <div class="t"><div class="g"><svg class="ico"><use href="#ic-actions"></use></svg></div>Actions</div>
+          <div class="t"><div class="g"><svg class="ico"><use href="#ic-person"></use></svg></div>Profile</div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">W — main screen</div><div class="note">Questions across every allowed chat</div></div>
+    </div>
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="tab-header"><div class="row1"><div class="tt">Actions</div></div></div>
+        <div class="body-scroll">
+          <div class="action-card"><div class="ac-icon" style="background:#35606B"><svg class="ico"><use href="#ic-check"></use></svg></div><div><div class="act">2 tasks due today</div><div class="acs">AI Team Band</div></div></div>
+          <div class="action-card"><div class="ac-icon" style="background:#B9722E"><svg class="ico"><use href="#ic-clock"></use></svg></div><div><div class="act">1 scheduled message pending</div><div class="acs">Sends tomorrow 9:00 AM</div></div></div>
+          <div class="action-card"><div class="ac-icon" style="background:#171B1A">@</div><div><div class="act">Shareef mentioned you</div><div class="acs">Creator Project Band</div></div></div>
+          <div class="action-card"><div class="ac-icon" style="background:#4B5D66"><svg class="ico"><use href="#ic-flag"></use></svg></div><div><div class="act">3 unread decisions</div><div class="acs">AI Team Band</div></div></div>
+        </div>
+        <div class="tabbar2">
+          <div class="t"><div class="g"><svg class="ico"><use href="#ic-chat"></use></svg></div>Chats</div>
+          <div class="t"><div class="g"><svg class="ico"><use href="#ic-sparkle"></use></svg></div>W</div>
+          <div class="t active"><div class="g"><svg class="ico"><use href="#ic-actions"></use></svg></div>Actions</div>
+          <div class="t"><div class="g"><svg class="ico"><use href="#ic-person"></use></svg></div>Profile</div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Actions</div><div class="note">One feed: tasks, schedule, alerts, mentions</div></div>
+    </div>
+
+  </div>
+</div>
+
+<div class="group">
+  <div class="group-head"><h2>Bands</h2><span>A group chat first — organization is available, not imposed</span></div>
+  <div class="rack" style="grid-template-columns: repeat(3, 1fr)">
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="app-header">
+          <span class="back">‹</span>
+          <div class="titles"><div class="title">AI Team Band</div><div class="subtitle">128 members</div></div>
+          <div class="icon">⋯</div>
+        </div>
+        <div class="summary-card">
+          <div class="close">×</div>
+          <div class="head"><svg class="ico" style="width:.85em;height:.85em"><use href="#ic-sparkle"></use></svg> SINCE YOU LEFT · 3 UPDATES</div>
+          <ul class="summary-list">
+            <li>Akash shared the wedding video</li>
+            <li>Priya finished the privacy-label task</li>
+            <li>Team decided to ship search before memory</li>
+          </ul>
+        </div>
+        <div class="thread" style="padding-top:0">
+          <div class="bubble in">alright, search is looking solid in staging</div>
+          <div class="bubble out">nice — memory next then</div>
+        </div>
+        <div class="shortcut-row">
+          <div class="shortcut-chip"><svg class="ico"><use href="#ic-folder"></use></svg> Files</div>
+          <div class="shortcut-chip"><svg class="ico"><use href="#ic-check"></use></svg> Tasks</div>
+          <div class="shortcut-chip"><svg class="ico"><use href="#ic-clock"></use></svg> Scheduled</div>
+        </div>
+        <div class="composer-wrap">
+          <div class="composer"><div class="plus">+</div><div class="ph">Message AI Team Band</div><div class="wbtn">W</div><div class="send">↑</div></div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Band chat</div><div class="note">Summary card + shortcut chips, not a tab strip</div></div>
+    </div>
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="app-header">
+          <span class="back">‹</span>
+          <div class="titles"><div class="title">Files</div><div class="subtitle">AI Team Band</div></div>
+        </div>
+        <div class="filter-row">
+          <div class="filter-chip on">All</div><div class="filter-chip">Photos</div><div class="filter-chip">Videos</div><div class="filter-chip">Expiring soon</div>
+        </div>
+        <div class="body-scroll">
+          <div class="file-row"><div class="ft"><svg class="ico"><use href="#ic-folder"></use></svg></div><div><div class="fn">CheXpert_Dataset.zip</div><div class="fm">3.6 GB · No compression</div></div><div class="chev">›</div></div>
+          <div class="file-row"><div class="ft"><svg class="ico"><use href="#ic-doc"></use></svg></div><div><div class="fn">Deck_v3.pdf</div><div class="fm">12 MB</div></div><div class="chev">›</div></div>
+          <div class="file-row"><div class="ft"><svg class="ico"><use href="#ic-folder"></use></svg></div><div><div class="fn">Site_Photos.zip</div><div class="fm">340 MB</div></div><div class="chev">›</div></div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Smart File View</div><div class="note">Opened from a Band shortcut, not a global tab</div></div>
+    </div>
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="app-header"><span class="back">‹</span><div class="titles"><div class="title">Tasks</div><div class="subtitle">AI Team Band</div></div></div>
+        <div class="body-scroll">
+          <div class="task-card"><div class="task-check">✓</div><div class="task-body"><div class="task-title">Ship search to staging</div><div class="task-sub">Akash · due Fri</div></div><div class="status-pill progress">In progress</div></div>
+          <div class="task-card"><div class="task-check"></div><div class="task-body"><div class="task-title">Review privacy labels</div><div class="task-sub">Priya · due Mon</div></div><div class="status-pill todo">To do</div></div>
+          <div class="task-card"><div class="task-check done">✓</div><div class="task-body"><div class="task-title done">Finalize band_memory job</div><div class="task-sub">Charan · done Tue</div></div><div class="status-pill done">Done</div></div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Task View</div><div class="note">AI-detected or created from a message</div></div>
+    </div>
+
+  </div>
+
+  <div class="rack" style="grid-template-columns: repeat(2, 1fr); max-width: 660px; gap: 2.2rem 4rem; margin-top: 2.2rem">
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="app-header">
+          <span class="back">‹</span>
+          <div class="titles"><div class="title">Family Band</div><div class="subtitle">6 members</div></div>
+          <div class="icon">⋯</div>
+        </div>
+        <div class="thread">
+          <div class="bubble in">Mom: don't forget dinner Sunday 6pm</div>
+          <div class="bubble out">on it, I'll be there by 5:30</div>
+          <div class="bubble in">Dad: I'll bring the car in for its checkup Monday</div>
+        </div>
+        <div class="shortcut-row">
+          <div class="shortcut-chip"><svg class="ico"><use href="#ic-calendar"></use></svg> Calendar</div>
+          <div class="shortcut-chip"><svg class="ico"><use href="#ic-clock"></use></svg> Reminders</div>
+          <div class="shortcut-chip"><svg class="ico"><use href="#ic-alert"></use></svg> Emergency</div>
+        </div>
+        <div class="composer-wrap">
+          <div class="composer"><div class="plus">+</div><div class="ph">Message Family Band</div><div class="wbtn">W</div><div class="send">↑</div></div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Family Band chat</div><div class="note">Same Band structure, family-specific shortcuts</div></div>
+    </div>
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="app-header"><span class="back">‹</span><div class="titles"><div class="title">Calendar</div><div class="subtitle">Family Band</div></div></div>
+        <div class="body-scroll">
+          <div style="display:flex; justify-content:space-between; padding:2px 0 4px">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:4px;font-size:9.5px;color:#9AA39F;width:26px"><span>M</span><div style="width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;color:#171B1A;font-weight:600">8</div></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:4px;font-size:9.5px;color:#9AA39F;width:26px"><span>T</span><div style="width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;color:#171B1A;font-weight:600">9</div></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:4px;font-size:9.5px;color:#9AA39F;width:26px"><span>W</span><div style="width:22px;height:22px;border-radius:50%;background:#B9722E;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600">10</div></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:4px;font-size:9.5px;color:#9AA39F;width:26px"><span>T</span><div style="width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;color:#171B1A;font-weight:600">11</div></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:4px;font-size:9.5px;color:#9AA39F;width:26px"><span>F</span><div style="width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;color:#171B1A;font-weight:600">12</div></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:4px;font-size:9.5px;color:#9AA39F;width:26px"><span>S</span><div style="width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;color:#171B1A;font-weight:600">13</div></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:4px;font-size:9.5px;color:#9AA39F;width:26px"><span>S</span><div style="width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;color:#171B1A;font-weight:600">14</div></div>
+          </div>
+          <div class="w-row"><div class="wg"><svg class="ico"><use href="#ic-calendar"></use></svg></div><div><div class="wt">Dinner at Mom's</div><div class="ws">Sun · 6:00 PM</div></div></div>
+          <div class="w-row"><div class="wg"><svg class="ico"><use href="#ic-calendar"></use></svg></div><div><div class="wt">Dad's checkup</div><div class="ws">Mon · 10:00 AM</div></div></div>
+          <div class="rewrite-card">
+            <div class="label">Reminder</div>
+            <div class="txt">Grandma's medication — 8:00 AM daily</div>
+          </div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Family Band — Calendar</div><div class="note">Opened from the Calendar shortcut</div></div>
+    </div>
+
+  </div>
+
+  <div class="rack" style="grid-template-columns: repeat(3, 1fr); margin-top: 2.2rem">
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="app-header"><span class="back">‹</span><div class="titles"><div class="title">Create Band</div></div></div>
+        <div class="body-scroll">
+          <div>
+            <div class="field-label">BAND NAME</div>
+            <div class="field">Wedding Film Team</div>
+          </div>
+          <div class="list-label">Category</div>
+          <div class="cat-row"><div class="cg"><svg class="ico"><use href="#ic-chat"></use></svg></div><div><div class="cn">General</div><div class="cd">Just chat and the essentials</div></div></div>
+          <div class="cat-row"><div class="cg"><svg class="ico"><use href="#ic-home"></use></svg></div><div><div class="cn">Family</div><div class="cd">Calendar, reminders, emergency</div></div></div>
+          <div class="cat-row"><div class="cg"><svg class="ico"><use href="#ic-book"></use></svg></div><div><div class="cn">Student</div><div class="cd">Deadlines, notes, study planning</div></div></div>
+          <div class="cat-row on"><div class="cg"><svg class="ico"><use href="#ic-camera"></use></svg></div><div><div class="cn">Creator</div><div class="cd">Media vault, review, edit space</div></div><div class="cchk"><svg class="ico"><use href="#ic-check"></use></svg></div></div>
+          <div class="cat-row"><div class="cg"><svg class="ico"><use href="#ic-briefcase"></use></svg></div><div><div class="cn">Work</div><div class="cd">Decisions, tasks, approvals</div></div></div>
+          <div class="cat-row"><div class="cg"><svg class="ico"><use href="#ic-group"></use></svg></div><div><div class="cn">Community</div><div class="cd">Announcements, topic rooms</div></div></div>
+        </div>
+        <div class="composer-wrap" style="padding-top:0">
+          <div class="send-cta" style="margin:0">Create Band</div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Create Band</div><div class="note">Category sets icon, framing, and (for Family) real modules</div></div>
+    </div>
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="app-header">
+          <span class="back">‹</span>
+          <div class="titles"><div class="title">Wedding Film Team</div><div class="subtitle">12 members</div></div>
+          <div class="icon">⋯</div>
+        </div>
+        <div class="thread">
+          <div class="bubble in">Priya: uploaded the ceremony raw clips</div>
+          <div class="bubble out">on it, starting the edit now</div>
+        </div>
+        <div class="shortcut-row">
+          <div class="shortcut-chip"><svg class="ico"><use href="#ic-folder"></use></svg> Media Vault</div>
+          <div class="shortcut-chip"><svg class="ico"><use href="#ic-check"></use></svg> Review</div>
+          <div class="shortcut-chip"><svg class="ico"><use href="#ic-pencil"></use></svg> Edit Space</div>
+        </div>
+        <div class="composer-wrap">
+          <div class="composer"><div class="plus">+</div><div class="ph">Message Wedding Film Team</div><div class="wbtn">W</div><div class="send">↑</div></div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Creator Band chat</div><div class="note">Media Vault, Review &amp; Approval, Edit Space</div></div>
+    </div>
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="app-header">
+          <span class="back">‹</span>
+          <div class="titles"><div class="title">AI Team Band</div><div class="subtitle">128 members</div></div>
+          <div class="icon">⋯</div>
+        </div>
+        <div class="scrim-thread">
+          <div class="thread">
+            <div class="bubble in">alright, search is looking solid in staging</div>
+            <div class="bubble out">nice — memory next then</div>
+          </div>
+          <div class="scrim"></div>
+          <div class="sheet">
+            <div class="sheet-handle"></div>
+            <div class="popup-row"><div class="pg"><svg class="ico"><use href="#ic-doc"></use></svg></div><div class="pl">Band Info</div></div>
+            <div class="popup-row"><div class="pg"><svg class="ico"><use href="#ic-group"></use></svg></div><div class="pl">Members</div></div>
+            <div class="popup-row" style="background:#FBF6EF; margin:0 -16px; padding-left:18px; border-radius:10px"><div class="pg" style="background:#171B1A;color:#F1E4D3"><svg class="ico"><use href="#ic-branch"></use></svg></div><div class="pl">Create Sub-Band</div></div>
+            <div class="popup-row" style="border-bottom:none"><span style="color:#B04A3E; font-size:12px; font-weight:600; padding-left:36px">Leave Band</span></div>
+          </div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Band menu — Create Sub-Band</div><div class="note">Available on every category, nested under the parent</div></div>
+    </div>
+
+  </div>
+</div>
+
+<div class="group">
+  <div class="group-head"><h2>Original-quality sharing</h2><span>Powered by Whale Tunnel</span></div>
+  <div class="rack">
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="app-header">
+          <span class="back">‹</span>
+          <div class="avatar" style="width:30px;height:30px;font-size:11px;background:#35606B">AI</div>
+          <div class="titles"><div class="title">AI Team Band</div></div>
+        </div>
+        <div class="scrim-thread">
+          <div class="thread">
+            <div class="bubble in">can you send the CheXpert dataset over?</div>
+            <div class="bubble out">sending now</div>
+          </div>
+          <div class="scrim"></div>
+          <div class="sheet">
+            <div class="sheet-handle"></div>
+            <div class="sheet-title" style="display:flex; align-items:center; justify-content:space-between">
+              <span>Attach</span>
+              <span style="font-size:8.5px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:#B9722E">Powered by Whale Tunnel</span>
+            </div>
+            <div class="attach-grid">
+              <div class="attach-opt"><div class="a-icon"><svg class="ico"><use href="#ic-image"></use></svg></div><div class="a-label">Photo</div></div>
+              <div class="attach-opt"><div class="a-icon"><svg class="ico"><use href="#ic-camera"></use></svg></div><div class="a-label">Camera</div></div>
+              <div class="attach-opt"><div class="a-icon"><svg class="ico"><use href="#ic-doc"></use></svg></div><div class="a-label">File</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Attach sheet</div><div class="note">Just Photo/Camera/File — nothing else</div></div>
+    </div>
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="app-header">
+          <span class="back">‹</span>
+          <div class="avatar" style="width:30px;height:30px;font-size:11px;background:#35606B">AI</div>
+          <div class="titles"><div class="title">AI Team Band</div></div>
+        </div>
+        <div class="scrim-thread">
+          <div class="thread">
+            <div class="bubble in">can you send the CheXpert dataset over?</div>
+          </div>
+          <div class="scrim"></div>
+          <div class="sheet">
+            <div class="sheet-handle"></div>
+            <div class="file-card">
+              <div class="file-thumb"><svg class="ico"><use href="#ic-folder"></use></svg></div>
+              <div class="file-info"><div class="fname">CheXpert_Dataset.zip</div><div class="fmeta">3.6 GB</div><div class="badge-original">No compression</div></div>
+            </div>
+            <div>
+              <div class="opt-row" style="border-bottom:none"><span class="opt-label">Send Original</span><div class="toggle on"></div></div>
+            </div>
+            <div class="opt-row" style="border-bottom:none; padding-top:0"><span class="opt-label" style="color:#9AA39F; font-weight:600">More options</span><span class="opt-value">Expiry, one-time, password ›</span></div>
+            <div class="send-cta">Send</div>
+          </div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Send preview — over 1 GB</div><div class="note">Expiry/one-time only appear when the file is actually large</div></div>
+    </div>
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="app-header">
+          <span class="back">‹</span>
+          <div class="avatar" style="width:30px;height:30px;font-size:11px;background:#35606B">AI</div>
+          <div class="titles"><div class="title">AI Team Band</div></div>
+        </div>
+        <div class="thread">
+          <div class="bubble in">can you send the CheXpert dataset over?</div>
+          <div class="tunnel-bubble">
+            <div class="row">
+              <div class="thumb"><svg class="ico"><use href="#ic-folder"></use></svg></div>
+              <div><div class="name">CheXpert_Dataset.zip</div><div class="meta">3.6 GB · Original quality</div></div>
+            </div>
+            <div class="progress-track"><div class="progress-fill"></div></div>
+            <div class="foot"><span>Uploading · 72%</span><span>Resumable</span></div>
+          </div>
+        </div>
+        <div class="composer-wrap">
+          <div class="composer"><div class="plus">+</div><div class="ph">Message</div><div class="wbtn">W</div><div class="send">↑</div></div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Sent, inline — over 1 GB</div><div class="note">Chunked, resumable, temporary tunnel</div></div>
+    </div>
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="app-header">
+          <span class="back">‹</span>
+          <div class="avatar" style="width:30px;height:30px;font-size:11px;background:#7C8580">S</div>
+          <div class="titles"><div class="title">Shareef</div></div>
+        </div>
+        <div class="thread">
+          <div class="bubble in">can you send the itinerary?</div>
+          <div class="tunnel-bubble">
+            <div class="row">
+              <div class="thumb"><svg class="ico"><use href="#ic-doc"></use></svg></div>
+              <div><div class="name">Trip_Itinerary.pdf</div><div class="meta">4.2 MB · Original quality</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="composer-wrap">
+          <div class="composer"><div class="plus">+</div><div class="ph">Message Shareef</div><div class="wbtn">W</div><div class="send">↑</div></div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Sent, inline — under 1 GB</div><div class="note">No progress bar, no expiry — just sends</div></div>
+    </div>
+
+  </div>
+</div>
+
+<div class="group">
+  <div class="group-head"><h2>Scheduling</h2><span>Lives inside the chat, not a main tab</span></div>
+  <div class="rack">
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="app-header">
+          <span class="back">‹</span>
+          <div class="avatar" style="width:30px;height:30px;font-size:11px;background:#35606B">AI</div>
+          <div class="titles"><div class="title">AI Team Band</div></div>
+        </div>
+        <div class="scrim-thread">
+          <div class="thread">
+            <div class="bubble out">Please review the file before tomorrow's meeting.</div>
+          </div>
+          <div class="scrim"></div>
+          <div class="sheet">
+            <div class="sheet-handle"></div>
+            <div class="sheet-title">Schedule message</div>
+            <div class="popup-row"><div class="pg"><svg class="ico"><use href="#ic-clock"></use></svg></div><div class="pl">Today, 6:00 PM</div></div>
+            <div class="popup-row" style="background:#FBF6EF; margin:0 -16px; padding-left:18px; border-radius:10px"><div class="pg" style="background:#171B1A;color:#F1E4D3"><svg class="ico"><use href="#ic-clock"></use></svg></div><div class="pl">Tomorrow, 9:00 AM</div></div>
+            <div class="popup-row" style="border-bottom:none"><div class="pg"><svg class="ico"><use href="#ic-calendar"></use></svg></div><div class="pl">Custom date &amp; time</div></div>
+            <div class="send-cta">Confirm</div>
+          </div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Schedule flow</div><div class="note">Long-press send, or ask W directly</div></div>
+    </div>
+
+    <div class="unit">
+      <div class="device"><div class="screen">
+        <div class="island"></div>
+        <div class="status"><span>9:41</span><div class="dots"><div class="bar" style="height:6px"></div><div class="bar" style="height:8px"></div><div class="bar" style="height:10px"></div></div></div>
+        <div class="app-header"><span class="back">‹</span><div class="titles"><div class="title">Chat Settings</div></div></div>
+        <div class="body-scroll">
+          <div class="settings-row"><div class="sl">Members</div><span class="chev">›</span></div>
+          <div class="settings-row"><div class="sl">Media and Files</div><span class="chev">›</span></div>
+          <div class="settings-row"><div class="sl">Starred Messages</div><span class="chev">›</span></div>
+          <div class="list-label" style="margin-top:6px">AI Mode</div>
+          <div class="ai-option-row"><span class="ol">On for this chat</span><div class="radio on"></div></div>
+          <div class="ai-option-row"><span class="ol">Allow summaries</span><div class="toggle on"></div></div>
+          <div class="ai-option-row"><span class="ol">Allow AI search</span><div class="toggle on"></div></div>
+          <div class="ai-option-row"><span class="ol">Allow memory</span><div class="toggle"></div></div>
+          <div class="ai-option-row"><span class="ol">Do not remember this chat</span><div class="toggle"></div></div>
+          <div class="settings-row danger" style="margin-top:6px; border-bottom:none"><div class="sl">Clear Chat</div></div>
+        </div>
+        <div class="home-bar"></div>
+      </div></div>
+      <div class="caption"><div class="name">Chat Settings — AI Mode</div><div class="note">Per-chat control, separate from encryption</div></div>
+    </div>
+
+  </div>
+</div>
+
+<div style="height:4rem"></div>
